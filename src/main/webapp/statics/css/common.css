@@ -1,0 +1,142 @@
+/*主页导航条 */
+.header{
+	height: 70px;
+}
+#header-nav{
+	background-color: #0593d3;
+	border-color: #4285f4;
+}
+
+.header .navbar .navbar-header a, .header .navbar .nav a{
+	color:white;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus,
+	.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus{
+	color:white;
+	background-color: #0482ba;
+}
+#dropDownMenu li a{
+	color: black;
+}
+/*******主页布局********/
+#home-container{width:1200px}
+#home-container hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#home-container .title-more{
+	margin-top: 15px;
+}
+#new-blog .blog-title, #new-question, .question-title
+{
+	height: 26px;
+    line-height: 26px;
+}
+#new-tweets .btn-primary, .btn-primary:hover{
+	color:#fff;
+	background-color: #21B351;
+	border-color: #21B351;
+}
+#new-tweets .tweets-header, #new-tweets .tweets-content, #new-tweets .tweets-action{
+	margin-top:20px;
+}
+#new-tweets .tweets-content .more a:hover{
+	border-color: #fff #fff #fff;
+	background-color: #fff;
+	border: 0px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+#new-tweets #tweetsContent .row .form-group{
+    margin-bottom: 0px;
+}
+#new-tweets #tweetsContent .row .time{
+    font-size: 12px;
+    color: #9B9B9B;
+}
+#new-tweets #tweetsContent .glyphicon {
+	 font-size: 14px;
+}
+#new-tweets #tweetsContent .row .col-sm-10{
+    padding-left: 0px;
+}
+
+
+/*******聊天室********/
+#chatDiv{
+	width: 100%;
+	height: 500px;
+	overflow:auto;
+	border: 1px solid #ff0000;
+}
+
+/*******全局变量********/
+#body{
+	width: 100%;
+    min-width: 1000px;
+    font: 400 16px/1.618 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,sans-serif;
+}
+.main-content{
+	min-height: 433px;
+}
+.icon-active {
+	color: rgb(59, 152, 53);
+}
+value{padding-left: 5px}
+.center{text-align: center}
+.footer{background: #444444}
+.row{
+	margin: 10px 0;
+}
+.row{
+	margin-top:10px;
+}
+.row .header {
+	width: 80px;
+}
+.row .content{
+	width: 88%;
+}
+.row .header-sm {
+	padding: 0px;
+	width: 50px;
+}
+.row .content-sm{
+	width: 84%;
+}
+.row .dark-box{
+	font-size: 14px;
+    line-height: 20px;
+    color: #9d9d9d;
+}
+.span-icon{
+	margin-right: 10px;
+}
+.padding-right-zero{
+	padding-right: 0px;
+}
+.padding-left-zero{
+	padding-left: 0px;
+}
+.margin-top20{
+	margin-top: 20px;
+}
+.from-group-lg{
+	height: 40px;
+	
+}
+.checkbox-lg, .checkbox-lg:FOCUS{
+	width: 18px;
+	height: 18px;
+	border: 1px solid;
+	cursor: pointer;
+}
+.label-lg{
+	font-size: 15px;
+}
+.img-left{
+	margin-left: 10px
+}
+  
+
+
+

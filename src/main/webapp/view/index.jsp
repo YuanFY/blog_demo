@@ -1,0 +1,119 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="renderer" content="webkit">
+<meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<title>Demo</title>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/3.3.7/bootstrap.min.css?"+Math.random()/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/common.css?"+Math.random() />
+
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
+    
+</head>
+<body id="body">
+    <div class="header">
+        <!-- 导航条 -->
+        <div class="navbar navbar-fixed-top navbar-default" role="navigation" id="header-nav">
+            <!-- container 左右（15px）居中显示  -->
+            <div class="container" id="header-container">
+                <div class="navbar-header">
+                    <!-- 设置响应式导航栏按钮 -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#main-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span><!-- ‘汉堡按钮’ -->
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Project Name</a>
+                </div>
+                <!-- 可折叠响应式导航栏 -->
+                <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                    <ul class="nav navbar-nav" id="header-nav">
+                        <li class="active"><a href="#index" data-toggle="tab">主页</span></a></li>
+                        <li><a href="#blog" data-toggle="tab" >博客</a></li>
+                        <li><a href="#tweets" data-toggle="tab">动弹</a></li>
+                        <li><a href="#sponsor" data-toggle="tab">赞助</a></li>
+                        <li><a href="#chat" data-toggle="tab">公共聊天室</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" id="header-right"> 
+                        <li><a href="${pageContext.request.contextPath }/register.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
+                        <li><a href="${pageContext.request.contextPath }/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div><!-- /.container -->
+        </div>
+    </div>
+    
+    <!-- 主题内容 -->
+    <div class="main-content tab-content" >
+        <div id="index" class="tab-pane active"></div>
+        <div id="blog" class="tab-pane"></div>
+        <div id="readBook" class="tab-pane"></div>
+        <div id="tweets" class="tab-pane"></div>
+        <div id="question" class="tab-pane"></div>
+        <div id="sponsor" class="tab-pane"></div>
+        <div id="chat" class="tab-pane"></div>
+    </div>
+    
+    <!-- 底部 -->
+    <div class="footer" id="footer" >
+        <ul class="nav nav-pills" style="padding-left:30%">
+		  <li><a href="#">关于作者</a></li>
+		  <li><a href="#">广告联系</a></li>
+		  <li><a href="#">广告联系</a></li>
+		  <li><a href="#">广告联系</a></li>
+		  <li><a href="#">友情链接</a></li>
+		</ul>
+    </div>  
+
+</body>
+
+<script type="text/javascript">
+    $(function(){
+    	$("#footer").hide();
+        //导航条点击换active 
+        $("#header-nav .dropdown").click(function(){
+            $.each($("#header-nav li"), function(){
+                $(this).removeClass("active");
+            });
+        });
+        //加载主页
+        showContentById('${pageContext.request.contextPath}/home/index.html', null, 'index');
+        
+    });
+    /**
+        shown.bs.tab事件在标签页显示时触发，但是必须在某个标签页已经显示之后。
+                       分别使用 event.target 和 event.relatedTarget 来定位到激活的标签页和前一个激活的标签页。
+    */
+    $('a[data-toggle="tab"]').on('shown.bs.tab',function(e) {
+    	$("#footer").hide();
+        $(".tab-content div").each(function(){
+            $(this).empty();
+        });
+        var id = $(e.target).attr('href');
+        if (id == "#index") {
+            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+        } else if (id == "#blog"){
+        	showContentById('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+        } else if (id == "#readBook"){
+            showContentById('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+        } else if (id == "#tweets"){
+            showContentById('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+        } else if (id == "#question"){
+            showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
+        } else if (id == "#chat"){
+            showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+        }
+    });
+
+</script>
+</html>
