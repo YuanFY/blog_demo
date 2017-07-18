@@ -8,7 +8,7 @@
 <meta name="viewport"
     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<title>登录-Demo</title>
+<title>公共聊天室</title>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/3.3.7/bootstrap.min.css?"+Math.random()/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/common.css?"+Math.random() />
@@ -43,7 +43,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-2">
-						<input type="text" class="form-control" placeholder="用户名">
+						<input type="text" name="userName" value="${user.userName }" class="form-control" placeholder="用户名" readonly="readonly">
 					</div>
 					<div class="col-sm-8">
 						<input type="text" class="form-control" placeholder="请输入内容">
@@ -56,5 +56,79 @@
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" style="display:none;">  
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content' style="margin:100px auto">
+                <div class='modal-header'>
+                     <a class="close" data-dismiss="modal" style="display:none"><span aria-hidden="true">&times;</span></a><h4 class='modal-title pull-left'>用户信息</h4>
+                </div>
+                <div class='modal-body' style="max-height: 600px;">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label" style="font-weight: normal;">用户名：</label>
+                        <div class="col-xs-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-flag"></span></span>
+                                <input id="userName" type="text" class="form-control" placeholder="" data-name="用户名" 
+                                data-msgTo="#userNameError" data-toggle="valid" data-minLen="2" data-maxLen="20" >
+                            </div>
+                        </div>
+                        <div class="col-xs-1">
+                          <span class="text-danger inline m-l-n m-t-sm" >*</span>
+                        </div>            
+                        <div class="col-xs-offset-3"><span style="color:red; margin-left: 40px" id="userNameError" class="error"></span></div>        
+                    </div>
+                </div>
+                <div class='modal-footer'>
+                    <button type="button" class="btn btn-info" id="saveBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script type="text/javascript">
+var userNameValidate = 0;
+$(function (){
+	var userName = $("input[name=userName]").val();
+	if (!StringUtils.isNotNull(userName)) {
+		$('#userModal').modal('show');
+	} 
+    $("#userName").bind("input propertychange focus",function(){
+        validateUserName(this);
+    });
+    $("#saveBtn").click(function(){
+    	if (userNameValidate == 1){
+    		$('.modal-header .close').click();
+    		$("input[name=userName]").val($("#userName").val());
+    	}
+    });
+});
+function changeInputDivClass(e, validate){
+    if(validate != 1){
+        $(e).parent().addClass("has-error");
+    }else{
+        $(e).parent().removeClass("has-error");
+    }
+}
+function validateUserName(e){
+    var userName = $(e).val();//不为空
+    var pattern = /^[A-Za-z0-9-_\u4e00-\u9fa5]+$/; 
+    if(userName == null || userName == ""){
+        $("#userNameError").text("不能为空");
+        userNameValidate = -1;
+    }else if(!pattern.test(userName)){
+        $("#userNameError").text("只能输入中文、英文字母、数字、英文下划线、英文中划线");
+        userNameValidate = 0;
+    }else{
+        if(userName.length > 15){
+            $("#userNameError").text("长度必须小于等于15");
+            userNameValidate = 0;
+        }else{
+            $("#userNameError").text("");
+            userNameValidate = 1;
+        }
+    }
+    changeInputDivClass(e, userNameValidate);
+}
+</script>
 </html>

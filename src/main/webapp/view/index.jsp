@@ -16,6 +16,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/stringUtil.js?"+Math.random()></script>
     
 </head>
 <body id="body">
@@ -74,7 +75,6 @@
 		  <li><a href="#">友情链接</a></li>
 		</ul>
     </div>  
-
 </body>
 
 <script type="text/javascript">
@@ -86,15 +86,67 @@
                 $(this).removeClass("active");
             });
         });
-        //加载主页
-        showContentById('${pageContext.request.contextPath}/home/index.html', null, 'index');
         
+        //加载当前页面
+        loadCurrentIndex();
+        
+        $('#header-nav a').click(function (e) {
+            $(this).tab('show');
+            var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+            window.location.hash = this.hash;
+            $('html,body').scrollTop(scrollmem);
+            
+            var id = window.location.hash;
+            loadUrl(id);
+        });
     });
+    
+    /**
+                加载当前页面
+    */
+    function loadCurrentIndex(){
+    	var currentId = window.location.hash;//设置或获取 href 属性中在井号“#”后面的分段。
+        if (currentId == null || currentId == '') {
+            currentId = "#index";
+        }
+        $('#header-nav li').each(function (e) {
+            var href = $(this).find("a").attr("href");
+            if (href == currentId) {
+                $(this).find("a").tab('show');
+                $(this).addClass("active");
+            } else {
+                $(this).removeClass("active");
+            }
+        });
+        loadUrl(currentId);
+    }
+    /**
+	    根据id加载url
+	*/
+    function loadUrl(id) {
+    	$("#footer").hide();
+        $(".tab-content div").each(function(){
+            $(this).empty();
+        });
+        if (id == "#index") {
+            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+        } else if (id == "#blog"){
+            showContentById('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+        } else if (id == "#readBook"){
+            showContentById('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+        } else if (id == "#tweets"){
+            showContentById('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+        } else if (id == "#question"){
+            showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
+        } else if (id == "#chat"){
+            showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+        }
+    }
     /**
         shown.bs.tab事件在标签页显示时触发，但是必须在某个标签页已经显示之后。
                        分别使用 event.target 和 event.relatedTarget 来定位到激活的标签页和前一个激活的标签页。
     */
-    $('a[data-toggle="tab"]').on('shown.bs.tab',function(e) {
+    /* $('a[data-toggle="tab"]').on('shown.bs.tab',function(e) {
     	$("#footer").hide();
         $(".tab-content div").each(function(){
             $(this).empty();
@@ -113,7 +165,7 @@
         } else if (id == "#chat"){
             showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         }
-    });
+    }); */
 
 </script>
 </html>

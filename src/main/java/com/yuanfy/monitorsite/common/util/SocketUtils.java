@@ -1,7 +1,9 @@
 package com.yuanfy.monitorsite.common.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -9,7 +11,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.apache.log4j.Logger;
 
+import com.yuanfy.monitorsite.socket.client.Client;
 import com.yuanfy.monitorsite.socket.server.task.SendMessageToClientTask;
+import com.yuanfy.monitorsite.system.entity.UserEntity;
 
 
 
@@ -30,6 +34,8 @@ public class SocketUtils {
     public static BlockingQueue<String> queue = new LinkedBlockingDeque<String>();//存放消息队列
     
     public static CopyOnWriteArrayList<SendMessageToClientTask> taskList = new CopyOnWriteArrayList<SendMessageToClientTask>();//存放线程集合类
+    
+    public static Map<UserEntity, Client> clientMap = new HashMap<UserEntity, Client>();
     
     public static volatile boolean isPrint = false; //volatile 具有可见性
     /**

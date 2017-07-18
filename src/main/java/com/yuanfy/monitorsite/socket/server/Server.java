@@ -7,7 +7,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.InitializingBean;
 
 import com.yuanfy.monitorsite.common.util.SocketUtils;
 import com.yuanfy.monitorsite.socket.server.task.PrintOutClientTask;
@@ -17,9 +16,9 @@ import com.yuanfy.monitorsite.socket.server.task.SendMessageToClientTask;
  * @Description: socket服务端
  * @author yuanfy
  * @date 2017年5月25日 上午8:32:03 
- * @version 6.2
+ * @version 1.0
  */
-public class Server extends ServerSocket implements InitializingBean{
+public class Server extends ServerSocket implements Runnable{
 
     private static Logger log = Logger.getLogger(Server.class);    
     
@@ -34,9 +33,9 @@ public class Server extends ServerSocket implements InitializingBean{
      * @Description: 服务端启动接收和发送
      * @author yuanfy
      * @date 2017年5月25日 上午8:46:11 
-     * @version 6.2
+     * @version 1.0
      */
-    private void run() {
+    public void run() {
         try {
             //1、创建向客户端打印信息线程
             new Thread(new PrintOutClientTask()).start();
@@ -59,12 +58,11 @@ public class Server extends ServerSocket implements InitializingBean{
             }
         }
     }
-
-    @SuppressWarnings("resource")
+    
     public static void start() {
         try {
             Server server = new Server(SocketUtils.getPort());//创建ServerSocket
-            server.run();
+            new Thread(server).start();
         }
         catch (IOException e) {
             if (e.getMessage().contains("Address already in use")) {
@@ -72,17 +70,4 @@ public class Server extends ServerSocket implements InitializingBean{
             }
         }
     }
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		try {
-            Server server = new Server(SocketUtils.getPort());//创建ServerSocket
-            server.run();
-        }
-        catch (IOException e) {
-            if (e.getMessage().contains("Address already in use")) {
-                log.error("服务端已经启动，若需要再次启动请修改端口！");
-            }
-        }
-	}
 }

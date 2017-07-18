@@ -72,8 +72,8 @@
 /*******全局变量********/
 #body{
 	width: 100%;
-    min-width: 1000px;
-    font: 400 16px/1.618 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,sans-serif;
+    font-size: 14px;
+    min-width: 1349px!important;
 }
 .main-content{
 	min-height: 433px;
