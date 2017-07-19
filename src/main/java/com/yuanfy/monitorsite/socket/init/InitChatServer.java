@@ -17,7 +17,7 @@ public class InitChatServer implements InitializingBean{
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.info("开始监控公共聊天服务器端：");
+        log.info("---------------开始监控公共聊天服务器端：------------------");
         Server.start();
     }
 

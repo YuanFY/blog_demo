@@ -15,7 +15,7 @@ import com.yuanfy.monitorsite.system.entity.UserEntity;
 public class SessionUtil {
     protected static final Logger logger = Logger.getLogger(SessionUtil.class);
 
-    private static final String SESSION_USER = "session_user";// 用户信息
+    public static final String SESSION_USER = "session_user";// 用户信息
     
     /**
      * @Description: 设置session的值

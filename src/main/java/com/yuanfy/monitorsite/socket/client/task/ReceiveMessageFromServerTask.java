@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import org.apache.log4j.Logger;
 
@@ -23,7 +25,9 @@ public class ReceiveMessageFromServerTask implements Runnable{
     
     private Socket socket;
     
-    private BufferedReader serverReader; 
+    private BufferedReader serverReader;
+    
+    private BlockingQueue<String> queue ;//存放消息队列
     
     /**
      * 通过构造方法获取socket输入流
@@ -33,6 +37,7 @@ public class ReceiveMessageFromServerTask implements Runnable{
         this.socket = socket;
         try {
             serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            queue = new LinkedBlockingDeque<String>();
         }
         catch (IOException e) {
             log.error("获取socket输入流出错：" + e);
@@ -45,7 +50,7 @@ public class ReceiveMessageFromServerTask implements Runnable{
             String receiveMessage = "";
             while (!"byeClient".equals(receiveMessage)) {
                 receiveMessage = serverReader.readLine();
-                System.out.println(receiveMessage);
+                queue.add(receiveMessage);
             }
         }
         catch (IOException e) {
@@ -56,7 +61,7 @@ public class ReceiveMessageFromServerTask implements Runnable{
         finally {
             StreamUtils.close(socket);
             StreamUtils.close(serverReader);
-            System.exit(1);
+            //System.exit(1);
         }
     }
 

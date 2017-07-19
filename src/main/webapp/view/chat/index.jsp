@@ -43,6 +43,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-2">
+					    <input type="hidden" name="userId" value="${user.userId}">
 						<input type="text" name="userName" value="${user.userName }" class="form-control" placeholder="用户名" readonly="readonly">
 					</div>
 					<div class="col-sm-8">
@@ -98,8 +99,19 @@ $(function (){
     });
     $("#saveBtn").click(function(){
     	if (userNameValidate == 1){
-    		$('.modal-header .close').click();
-    		$("input[name=userName]").val($("#userName").val());
+    		$.ajax({
+                url:'${pageContext.request.contextPath}/chat/startClient.do',
+                dataType: 'xml',
+                data:{userId:$("input[name=userId]").val(),userName:$("#userName").val()},
+                success: function(result){
+                	console.info(result)
+                    var state = result.error;
+                    if(state == 1){
+                    	$('.modal-header .close').click();
+                        $("input[name=userName]").val($("#userName").val());
+                    }
+                }
+            });
     	}
     });
 });

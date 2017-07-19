@@ -38,7 +38,7 @@
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
   <servlet>
-    <servlet-name>springServlet</servlet-name>
+    <servlet-name>DispatcherServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
@@ -46,11 +46,11 @@
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>springServlet</servlet-name>
+    <servlet-name>DispatcherServlet</servlet-name>
     <url-pattern>*.html</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>springServlet</servlet-name>
+    <servlet-name>DispatcherServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
 </web-app>

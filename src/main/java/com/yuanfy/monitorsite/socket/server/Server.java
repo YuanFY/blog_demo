@@ -26,7 +26,6 @@ public class Server extends ServerSocket implements Runnable{
     
     private Server(int port) throws IOException {
         super(port);
-        log.info("----------启动聊天室服务器----------");
     }
     
     /**
@@ -42,11 +41,12 @@ public class Server extends ServerSocket implements Runnable{
             //2、主线程 监听客户端请求，并启动线程处理请求
             while (true) {
                 Socket socket = this.accept();
+                System.out.println(socket);
                 threadPool.execute(new SendMessageToClientTask(socket));
             }
         }
         catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             log.error("接收客户端请求出错：", e);
         }
         finally {
@@ -63,6 +63,7 @@ public class Server extends ServerSocket implements Runnable{
         try {
             Server server = new Server(SocketUtils.getPort());//创建ServerSocket
             new Thread(server).start();
+            log.info("---------------成功启动聊天服务器------------------");
         }
         catch (IOException e) {
             if (e.getMessage().contains("Address already in use")) {

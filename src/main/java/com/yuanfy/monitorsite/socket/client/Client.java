@@ -31,36 +31,39 @@ public class Client extends Socket{
     public static boolean startClient(UserEntity user) {
         boolean result =  true;
         Client client = SocketUtils.clientMap.get(user);
-        PrintWriter printWriter = null;
-        BufferedReader consoleReader = null;
         try {
             if ( client == null ){
                 //1、创建socket
                 client = new Client(SocketUtils.getHost(), SocketUtils.getPort());
+                SocketUtils.clientMap.put(user, client);
+                System.out.println(SocketUtils.clientMap.get(user));
             }
-            //2、根据socket获取输出流
-            printWriter = new PrintWriter(client.getOutputStream(), true);
-            
             //3、启动接收服务端信息的线程
             new Thread(new ReceiveMessageFromServerTask(client)).start();
             
-            //4、主线程控制输入消息
-            while (true) {
-                consoleReader = new BufferedReader(new InputStreamReader(System.in));
-                String inputContent = consoleReader.readLine();
-                printWriter.println(inputContent);
-            }
+            sendMessage(user);
         }
         catch (IOException e) {
             log.error("创建客户端socket出错：" + e);
         }
-        finally {
-            StreamUtils.close(client);
-            StreamUtils.close(consoleReader);
-            StreamUtils.close(printWriter);
-        }
-        
         return result;
+    }
+    
+    public static void sendMessage(UserEntity user){
+        Client client = SocketUtils.clientMap.get(user);
+        PrintWriter printWriter = null;
+        try {
+            if ( client == null ){
+                return ;
+            }
+            //2、根据socket获取输出流
+            printWriter = new PrintWriter(client.getOutputStream(), true);
+            printWriter.println("qwer");
+            
+        }
+        catch (IOException e) {
+            log.error("创建客户端socket出错：" + e);
+        }
     }
     
     public static void main(String[] args) {

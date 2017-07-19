@@ -39,6 +39,7 @@ public class SendMessageToClientTask implements Runnable{
     public SendMessageToClientTask(Socket socket) throws IOException {
         this.socket = socket;
         out = new PrintWriter(socket.getOutputStream(), true);//设置为true自动刷新缓冲流
+        System.out.println(socket.getInputStream().available());
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out.println("成功连接,欢迎进入Holle Kitty的聊天室，请输入你的名字：");
     }
@@ -80,6 +81,7 @@ public class SendMessageToClientTask implements Runnable{
             out.println("byeClient");
         }
         catch (IOException e) {
+            //e.printStackTrace();
             if (e.getMessage().contains("Connection reset")) {
                 log.error("Client(" + name + ")退出了聊天室!");
             } else {
