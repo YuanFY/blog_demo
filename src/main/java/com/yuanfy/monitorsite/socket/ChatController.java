@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yuanfy.monitorsite.common.util.StringUtils;
 import com.yuanfy.monitorsite.framework.SessionUtil;
 import com.yuanfy.monitorsite.framework.dto.AjaxResult;
 import com.yuanfy.monitorsite.socket.client.Client;
@@ -24,7 +25,7 @@ public class ChatController {
 	
 	@RequestMapping(value="chat/startClient")
 	@ResponseBody
-	public AjaxResult startClient(UserEntity user,HttpServletRequest request) {
+	public AjaxResult startClient(UserEntity user, String message, HttpServletRequest request) {
 	    AjaxResult result = new AjaxResult(1);
 	    if (user.getUserId() == null){
             user.setUserId(System.currentTimeMillis());
@@ -35,8 +36,12 @@ public class ChatController {
                user = sessionUser; 
             }
         }
-	    if (Client.startClient(user)) {
-	        result.setData(user);
+	    if (StringUtils.isEmpty(message)) {
+	        if (Client.startClient(user)) {
+	            result.setData(user);
+	        }
+	    } else {
+	        Client.sendMessage(user, message);
 	    }
 	    return result;
 	}

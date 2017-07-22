@@ -41,7 +41,7 @@ public class Client extends Socket{
             //3、启动接收服务端信息的线程
             new Thread(new ReceiveMessageFromServerTask(client)).start();
             
-            sendMessage(user);
+            sendMessage(user, user.getUserName());
         }
         catch (IOException e) {
             log.error("创建客户端socket出错：" + e);
@@ -49,17 +49,16 @@ public class Client extends Socket{
         return result;
     }
     
-    public static void sendMessage(UserEntity user){
+    public static void sendMessage(UserEntity user, String message){
         Client client = SocketUtils.clientMap.get(user);
         PrintWriter printWriter = null;
         try {
-            if ( client == null ){
+            if (client == null){
                 return ;
             }
             //2、根据socket获取输出流
             printWriter = new PrintWriter(client.getOutputStream(), true);
-            printWriter.println("qwer");
-            
+            printWriter.println(message);
         }
         catch (IOException e) {
             log.error("创建客户端socket出错：" + e);

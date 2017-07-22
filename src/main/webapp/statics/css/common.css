@@ -32,7 +32,7 @@
 	height: 26px;
     line-height: 26px;
 }
-#new-tweets .btn-primary, .btn-primary:hover{
+#new-tweets .btn-primary, #new-tweets .btn-primary:hover{
 	color:#fff;
 	background-color: #21B351;
 	border-color: #21B351;
@@ -136,7 +136,11 @@ value{padding-left: 5px}
 .img-left{
 	margin-left: 10px
 }
-  
+.has-error:focus{
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}  
 
 
 

@@ -47,10 +47,10 @@
 						<input type="text" name="userName" value="${user.userName }" class="form-control" placeholder="用户名" readonly="readonly">
 					</div>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" placeholder="请输入内容">
+						<input type="text" name="message" class="form-control" placeholder="请输入内容" data-toggle="tooltip" data-placement="top" title="发送内容不能为空">
 					</div>
 					<div class="col-sm-2">
-						<button type="button" class="btn btn-primary">发送</button>
+						<button type="button" class="btn btn-primary" id="sendBtn_chat">发送</button>
 					</div>
 				</div>
 				
@@ -71,7 +71,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-flag"></span></span>
                                 <input id="userName" type="text" class="form-control" placeholder="" data-name="用户名" 
-                                data-msgTo="#userNameError" data-toggle="valid" data-minLen="2" data-maxLen="20" >
+                                data-msgTo="#userNameError" data-toggle="valid" data-minLen="2" data-maxLen="20">
                             </div>
                         </div>
                         <div class="col-xs-1">
@@ -90,6 +90,7 @@
 <script type="text/javascript">
 var userNameValidate = 0;
 $(function (){
+	$("input[name=message]").tooltip('toggle');
 	var userName = $("input[name=userName]").val();
 	if (!StringUtils.isNotNull(userName)) {
 		$('#userModal').modal('show');
@@ -99,22 +100,50 @@ $(function (){
     });
     $("#saveBtn").click(function(){
     	if (userNameValidate == 1){
-    		$.ajax({
-                url:'${pageContext.request.contextPath}/chat/startClient.html',
-                dataType: 'json',
-                data:{userId:$("input[name=userId]").val(),userName:$("#userName").val()},
-                success: function(result){debugger
-                	console.info(result)
-                    var state = result.error;
-                    if(state == 1){
-                    	$('.modal-header .close').click();
-                        $("input[name=userName]").val($("#userName").val());
-                    }
-                }
-            });
+    		sendMessageToServer();
     	}
     });
+    var sendBtnFlag = false;
+    $("input[name=message]").bind("input propertychange focus",function(){
+    	var message = $(this).val();
+        if (message == null || $.trim(message) == '') {
+            $(this).addClass("has-error");
+        } else{
+        	$(this).removeClass("has-error");
+        	sendBtnFlag = true;
+        }
+    });
+    $("#sendBtn_chat").click(function(){
+    	if (!sendBtnFlag) {
+	    	var message = $("input[name=message]").val();
+	    	if (message == null || $.trim(message) == '') {
+	    		$("input[name=message]").addClass("has-error");
+	    		$("input[name=message]").focus();
+	    		return;
+	    	}
+    	}
+    	$("input[name=message]").removeClass("has-error");
+    	$("input[name=message]").html("");
+    	sendMessageToServer();
+    });
 });
+
+function sendMessageToServer() {
+	$.ajax({
+        url:'${pageContext.request.contextPath}/chat/startClient.html',
+        dataType: 'json',
+        data:{userId:$("input[name=userId]").val(),userName:$("#userName").val(), message:$("input[name=message]").val()},
+        success: function(result){
+            var state = result.error;
+            if(state == 1){
+                $('.modal-header .close').click();
+                $("input[name=userId]").val(result.data["userId"]);
+                $("input[name=userName]").val($("#userName").val());
+            }
+        }
+    });
+}
+
 function changeInputDivClass(e, validate){
     if(validate != 1){
         $(e).parent().addClass("has-error");
@@ -142,5 +171,6 @@ function validateUserName(e){
     }
     changeInputDivClass(e, userNameValidate);
 }
+
 </script>
 </html>
