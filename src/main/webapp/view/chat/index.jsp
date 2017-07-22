@@ -100,10 +100,10 @@ $(function (){
     $("#saveBtn").click(function(){
     	if (userNameValidate == 1){
     		$.ajax({
-                url:'${pageContext.request.contextPath}/chat/startClient.do',
-                dataType: 'xml',
+                url:'${pageContext.request.contextPath}/chat/startClient.html',
+                dataType: 'json',
                 data:{userId:$("input[name=userId]").val(),userName:$("#userName").val()},
-                success: function(result){
+                success: function(result){debugger
                 	console.info(result)
                     var state = result.error;
                     if(state == 1){

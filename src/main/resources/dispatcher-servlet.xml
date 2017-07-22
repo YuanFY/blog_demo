@@ -10,7 +10,30 @@
     
     <description>Spring MVC Configuration</description>
     
-    <mvc:annotation-driven />
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">  
+                        <property name="dateFormat">  
+                            <bean class="java.text.SimpleDateFormat">  
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />  
+                            </bean>  
+                        </property>  
+                    </bean>  
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven> 
+    <!-- 以.html为后缀名访问，默认返回数据类型是 text/html， 所以要修改返回的数据类型 -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"> 
+        <property name="mediaTypes">  
+            <map>  
+                <entry key="html" value="application/json;charset=UTF-8"/> 
+            </map>  
+        </property> 
+    </bean>
+        
     
     <!-- 使用Annotation自动注册Bean,只扫描@Controller -->
     <context:component-scan base-package="com.yuanfy.monitorsite" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
@@ -37,12 +60,6 @@
         <property name="maxUploadSize" value="10485760" />  
     </bean>
     
-    <!-- 以.html为后缀名访问，默认返回数据类型是 text/html， 所以要修改返回的数据类型 -->
-    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
-        <property name="supportedMediaTypes">  
-            <list>  
-                <value>application/json;charset=UTF-8</value>  
-            </list>  
-        </property>  
-    </bean> 
+    <bean id="viewResolver"  
+          class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">  </bean>
 </beans>
