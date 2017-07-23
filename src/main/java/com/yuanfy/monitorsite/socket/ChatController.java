@@ -37,12 +37,11 @@ public class ChatController {
             }
         }
 	    if (StringUtils.isEmpty(message)) {
-	        if (Client.startClient(user)) {
-	            result.setData(user);
-	        }
+	        Client.startClient(user);
 	    } else {
 	        Client.sendMessage(user, message);
 	    }
+	    result.setData(user);
 	    return result;
 	}
 }

@@ -58,7 +58,7 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 	
-	<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" style="display:none;">  
+	<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" style="display:none;" data-backdrop="static" data-keyboard="false">  
         <div class='modal-dialog' role='document'>
             <div class='modal-content' style="margin:100px auto">
                 <div class='modal-header'>
@@ -90,7 +90,7 @@
 <script type="text/javascript">
 var userNameValidate = 0;
 $(function (){
-	$("input[name=message]").tooltip('toggle');
+	$("input[name=message]").tooltip();
 	var userName = $("input[name=userName]").val();
 	if (!StringUtils.isNotNull(userName)) {
 		$('#userModal').modal('show');
@@ -123,11 +123,12 @@ $(function (){
 	    	}
     	}
     	$("input[name=message]").removeClass("has-error");
-    	$("input[name=message]").html("");
     	sendMessageToServer();
     });
 });
-
+/**
+ * 发送消息给服务器
+ */
 function sendMessageToServer() {
 	$.ajax({
         url:'${pageContext.request.contextPath}/chat/startClient.html',
@@ -137,12 +138,15 @@ function sendMessageToServer() {
             var state = result.error;
             if(state == 1){
                 $('.modal-header .close').click();
-                $("input[name=userId]").val(result.data["userId"]);
+                $("input[name=userId]").val(result.data.userId);
                 $("input[name=userName]").val($("#userName").val());
+                $("input[name=message]").val("");
             }
         }
     });
 }
+
+
 
 function changeInputDivClass(e, validate){
     if(validate != 1){
