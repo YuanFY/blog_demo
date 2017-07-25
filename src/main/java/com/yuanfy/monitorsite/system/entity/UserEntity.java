@@ -1,5 +1,9 @@
 package com.yuanfy.monitorsite.system.entity;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.yuanfy.monitorsite.framework.SessionUtil;
+
 /**
  * @Description: 用户实体类
  * @author yuanfy
@@ -18,6 +22,19 @@ public class UserEntity {
         this.userName = userName;
     }
 
+    public UserEntity getSessionUser(HttpServletRequest request){
+        if (this.getUserId() == null){
+            this.setUserId(System.currentTimeMillis());
+            SessionUtil.setAttr(request, SessionUtil.SESSION_USER, this);
+            return this;
+        } 
+        UserEntity sessionUser = SessionUtil.getUser(request);
+        if (sessionUser.getUserId().equals(this.getUserId())) {
+           return sessionUser; 
+        }
+        return null;
+    }
+    
     public Long getUserId() {
         return userId;
     }

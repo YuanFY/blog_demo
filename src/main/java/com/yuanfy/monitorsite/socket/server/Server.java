@@ -41,7 +41,6 @@ public class Server extends ServerSocket implements Runnable{
             //2、主线程 监听客户端请求，并启动线程处理请求
             while (true) {
                 Socket socket = this.accept();
-                System.out.println(socket);
                 threadPool.execute(new SendMessageToClientTask(socket));
             }
         }

@@ -36,11 +36,12 @@ public class Client extends Socket{
                 //1、创建socket
                 client = new Client(SocketUtils.getHost(), SocketUtils.getPort());
                 SocketUtils.clientMap.put(user, client);
-                System.out.println(SocketUtils.clientMap.get(user));
             }
-            //3、启动接收服务端信息的线程
-            new Thread(new ReceiveMessageFromServerTask(client)).start();
-            
+            //2、启动接收服务端信息的线程
+            ReceiveMessageFromServerTask task = new ReceiveMessageFromServerTask(client);
+            SocketUtils.receiveMessageFromServerTaskMap.put(user, task);
+            new Thread(task).start();
+            //3、发送消息注册信息
             sendMessage(user, user.getUserName());
         }
         catch (IOException e) {

@@ -90,6 +90,11 @@
 <script type="text/javascript">
 var userNameValidate = 0;
 $(function (){
+	
+	//获取服务端信息
+	getReceiveMessage();
+	setInterval("getReceiveMessage()", 500);
+	
 	$("input[name=message]").tooltip();
 	var userName = $("input[name=userName]").val();
 	if (!StringUtils.isNotNull(userName)) {
@@ -126,6 +131,25 @@ $(function (){
     	sendMessageToServer();
     });
 });
+
+/**
+ * 接收信息
+ */
+function getReceiveMessage(){
+	$.ajax({
+        url:'${pageContext.request.contextPath}/chat/getReceiveMessage.html',
+        dataType: 'json',
+        success: function(result){
+            if (result.data != null && result.data != "") {debugger
+            	for (var i = 0; i < result.data.length; i ++) {
+            		$("#chatDiv").html($("#chatDiv").html()+"<p>"+ result.data[i] +"</p>")
+            	}
+            }
+            
+        }
+    });
+}
+
 /**
  * 发送消息给服务器
  */
@@ -145,8 +169,6 @@ function sendMessageToServer() {
         }
     });
 }
-
-
 
 function changeInputDivClass(e, validate){
     if(validate != 1){

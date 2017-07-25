@@ -39,7 +39,6 @@ public class SendMessageToClientTask implements Runnable{
     public SendMessageToClientTask(Socket socket) throws IOException {
         this.socket = socket;
         out = new PrintWriter(socket.getOutputStream(), true);//设置为true自动刷新缓冲流
-        System.out.println(socket.getInputStream().available());
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out.println("成功连接,欢迎进入Holle Kitty的聊天室，请输入你的名字：");
     }
@@ -59,7 +58,7 @@ public class SendMessageToClientTask implements Runnable{
             while (!"bye".equals(content)) {
                 if ((count++) == 0) {//2、缓存用户和对应的用户线程
                     name = content;
-                    SocketUtils.taskList.add(this);
+                    SocketUtils.sendMessageToClientTaskList.add(this);
                     SocketUtils.addUser(content);
                     
                     String clientContent = name + ",你好！可以开始聊天了...";
@@ -90,7 +89,7 @@ public class SendMessageToClientTask implements Runnable{
         }
         finally {
             //4、客户端退出后要清理缓存中对应的用户和线程
-            SocketUtils.taskList.remove(this);
+            SocketUtils.sendMessageToClientTaskList.remove(this);
             SocketUtils.removeUser(name);
             SocketUtils.putMessage("Client(" + name + ")退出了聊天室!");
             StreamUtils.close(socket);

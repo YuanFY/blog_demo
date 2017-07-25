@@ -18,7 +18,7 @@ public class PrintOutClientTask implements Runnable{
                 if (SocketUtils.queue.size() == 0) {
                     SocketUtils.isPrint = false;
                 }
-                for (SendMessageToClientTask task : SocketUtils.taskList) {
+                for (SendMessageToClientTask task : SocketUtils.sendMessageToClientTaskList) {
                     task.sendMessage(message);
                 }
             }

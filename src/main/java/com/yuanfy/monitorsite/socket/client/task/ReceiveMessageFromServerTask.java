@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -27,7 +29,7 @@ public class ReceiveMessageFromServerTask implements Runnable{
     
     private BufferedReader serverReader;
     
-    private BlockingQueue<String> queue ;//存放消息队列
+    private BlockingQueue<String> messageQueue ;
     
     /**
      * 通过构造方法获取socket输入流
@@ -37,7 +39,7 @@ public class ReceiveMessageFromServerTask implements Runnable{
         this.socket = socket;
         try {
             serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            queue = new LinkedBlockingDeque<String>();
+            messageQueue = new LinkedBlockingDeque<String>();
         }
         catch (IOException e) {
             log.error("获取socket输入流出错：" + e);
@@ -50,7 +52,8 @@ public class ReceiveMessageFromServerTask implements Runnable{
             String receiveMessage = "";
             while (!"byeClient".equals(receiveMessage)) {
                 receiveMessage = serverReader.readLine();
-                queue.add(receiveMessage);
+                System.out.println(receiveMessage);
+                messageQueue.add(receiveMessage);
             }
         }
         catch (IOException e) {
@@ -61,8 +64,15 @@ public class ReceiveMessageFromServerTask implements Runnable{
         finally {
             StreamUtils.close(socket);
             StreamUtils.close(serverReader);
-            //System.exit(1);
         }
     }
-
+    
+    public List<String> getReceiveMessage(){
+        List<String> messageList = new ArrayList<String>();
+        String message = null;
+        while ((message = messageQueue.poll()) != null) {
+            messageList.add(message);
+        }
+        return messageList;
+    }
 }
