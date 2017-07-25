@@ -64,7 +64,7 @@ public class ChatController {
     public AjaxResult getReceiveMessageFromServer(HttpServletRequest request) {
 	    AjaxResult result = new AjaxResult(1);
 	    UserEntity user = SessionUtil.getUser(request);
-	    ReceiveMessageFromServerTask task = SocketUtils.receiveMessageFromServerTaskMap.get(user);
+	    ReceiveMessageFromServerTask task = SocketUtils.receiveMessageFromServerTaskMap.get(SocketUtils.clientMap.get(user));
 	    if(task != null) {
 	        result.setData(task.getReceiveMessage());
 	    }

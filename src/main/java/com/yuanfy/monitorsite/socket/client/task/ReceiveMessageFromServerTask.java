@@ -11,6 +11,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.apache.log4j.Logger;
 
+import com.yuanfy.monitorsite.common.util.SocketUtils;
 import com.yuanfy.monitorsite.common.util.StreamUtils;
 
 
@@ -40,6 +41,7 @@ public class ReceiveMessageFromServerTask implements Runnable{
         try {
             serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             messageQueue = new LinkedBlockingDeque<String>();
+            SocketUtils.receiveMessageFromServerTaskMap.put(socket, this);
         }
         catch (IOException e) {
             log.error("获取socket输入流出错：" + e);
@@ -52,7 +54,6 @@ public class ReceiveMessageFromServerTask implements Runnable{
             String receiveMessage = "";
             while (!"byeClient".equals(receiveMessage)) {
                 receiveMessage = serverReader.readLine();
-                System.out.println(receiveMessage);
                 messageQueue.add(receiveMessage);
             }
         }

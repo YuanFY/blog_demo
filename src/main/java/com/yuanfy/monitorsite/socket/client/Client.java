@@ -38,9 +38,7 @@ public class Client extends Socket{
                 SocketUtils.clientMap.put(user, client);
             }
             //2、启动接收服务端信息的线程
-            ReceiveMessageFromServerTask task = new ReceiveMessageFromServerTask(client);
-            SocketUtils.receiveMessageFromServerTaskMap.put(user, task);
-            new Thread(task).start();
+            new Thread(new ReceiveMessageFromServerTask(client)).start();
             //3、发送消息注册信息
             sendMessage(user, user.getUserName());
         }

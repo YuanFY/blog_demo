@@ -35,7 +35,7 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="row text-center">
-					<label style="font-size: 24px">公共聊天室</label>
+					<label style="font-size: 24px">简易公共聊天室</label>
 				</div>
 				
 				<div id="chatDiv">
@@ -95,6 +95,7 @@ $(function (){
 	getReceiveMessage();
 	setInterval("getReceiveMessage()", 500);
 	
+	//用户名验证
 	$("input[name=message]").tooltip();
 	var userName = $("input[name=userName]").val();
 	if (!StringUtils.isNotNull(userName)) {
@@ -103,6 +104,7 @@ $(function (){
     $("#userName").bind("input propertychange focus",function(){
         validateUserName(this);
     });
+    
     $("#saveBtn").click(function(){
     	if (userNameValidate == 1){
     		sendMessageToServer();
@@ -140,7 +142,7 @@ function getReceiveMessage(){
         url:'${pageContext.request.contextPath}/chat/getReceiveMessage.html',
         dataType: 'json',
         success: function(result){
-            if (result.data != null && result.data != "") {debugger
+            if (result.data != null && result.data != "") {
             	for (var i = 0; i < result.data.length; i ++) {
             		$("#chatDiv").html($("#chatDiv").html()+"<p>"+ result.data[i] +"</p>")
             	}
@@ -154,16 +156,20 @@ function getReceiveMessage(){
  * 发送消息给服务器
  */
 function sendMessageToServer() {
+	var userName = '${user.userName}';
+	if (userName == null || userName == '') {
+		userName = $("#userName").val();
+	}
 	$.ajax({
         url:'${pageContext.request.contextPath}/chat/startClient.html',
         dataType: 'json',
-        data:{userId:$("input[name=userId]").val(),userName:$("#userName").val(), message:$("input[name=message]").val()},
+        data:{userId:$("input[name=userId]").val(),userName:userName, message:$("input[name=message]").val()},
         success: function(result){
             var state = result.error;
             if(state == 1){
                 $('.modal-header .close').click();
                 $("input[name=userId]").val(result.data.userId);
-                $("input[name=userName]").val($("#userName").val());
+                $("input[name=userName]").val(userName);
                 $("input[name=message]").val("");
             }
         }

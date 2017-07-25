@@ -1,5 +1,8 @@
 package com.yuanfy.monitorsite.socket.server.task;
 
+import java.net.Socket;
+import java.util.Map.Entry;
+
 import com.yuanfy.monitorsite.common.util.SocketUtils;
 
 /**
@@ -18,8 +21,8 @@ public class PrintOutClientTask implements Runnable{
                 if (SocketUtils.queue.size() == 0) {
                     SocketUtils.isPrint = false;
                 }
-                for (SendMessageToClientTask task : SocketUtils.sendMessageToClientTaskList) {
-                    task.sendMessage(message);
+                for (Entry<Socket, SendMessageToClientTask> task : SocketUtils.sendMessageToClientTaskMap.entrySet()) {
+                   task.getValue().sendMessage(message);
                 }
             }
         }

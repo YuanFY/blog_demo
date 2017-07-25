@@ -1,12 +1,12 @@
 package com.yuanfy.monitorsite.common.util;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import org.apache.log4j.Logger;
@@ -36,12 +36,11 @@ public class SocketUtils {
     //存放消息队列
     public static BlockingQueue<String> queue = new LinkedBlockingDeque<String>();
     
-    //存放发送消息给客户端线程的集合类
-    public static CopyOnWriteArrayList<SendMessageToClientTask> sendMessageToClientTaskList = new CopyOnWriteArrayList<SendMessageToClientTask>();
-    
     public static Map<UserEntity, Client> clientMap = new HashMap<UserEntity, Client>();
     
-    public static Map<UserEntity, ReceiveMessageFromServerTask> receiveMessageFromServerTaskMap= new HashMap<UserEntity, ReceiveMessageFromServerTask>();
+    public static Map<Socket, SendMessageToClientTask> sendMessageToClientTaskMap = new HashMap<Socket, SendMessageToClientTask>();
+    
+    public static Map<Socket, ReceiveMessageFromServerTask> receiveMessageFromServerTaskMap= new HashMap<Socket, ReceiveMessageFromServerTask>();
     
     public static volatile boolean isPrint = false; //volatile 具有可见性
     /**

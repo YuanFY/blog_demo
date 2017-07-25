@@ -40,6 +40,7 @@ public class SendMessageToClientTask implements Runnable{
         this.socket = socket;
         out = new PrintWriter(socket.getOutputStream(), true);//设置为true自动刷新缓冲流
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        SocketUtils.sendMessageToClientTaskMap.put(socket, this);
         out.println("成功连接,欢迎进入Holle Kitty的聊天室，请输入你的名字：");
     }
 
@@ -58,7 +59,6 @@ public class SendMessageToClientTask implements Runnable{
             while (!"bye".equals(content)) {
                 if ((count++) == 0) {//2、缓存用户和对应的用户线程
                     name = content;
-                    SocketUtils.sendMessageToClientTaskList.add(this);
                     SocketUtils.addUser(content);
                     
                     String clientContent = name + ",你好！可以开始聊天了...";
@@ -80,16 +80,17 @@ public class SendMessageToClientTask implements Runnable{
             out.println("byeClient");
         }
         catch (IOException e) {
-            //e.printStackTrace();
             if (e.getMessage().contains("Connection reset")) {
                 log.error("Client(" + name + ")退出了聊天室!");
+                SocketUtils.putMessage("Client(" + name + ")退出了聊天室!");
             } else {
                 log.error("获取客户端信息出错：" + e);
             }
         }
         finally {
             //4、客户端退出后要清理缓存中对应的用户和线程
-            SocketUtils.sendMessageToClientTaskList.remove(this);
+            SocketUtils.sendMessageToClientTaskMap.remove(socket);
+            SocketUtils.receiveMessageFromServerTaskMap.remove(socket);
             SocketUtils.removeUser(name);
             SocketUtils.putMessage("Client(" + name + ")退出了聊天室!");
             StreamUtils.close(socket);
