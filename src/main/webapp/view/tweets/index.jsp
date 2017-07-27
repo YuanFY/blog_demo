@@ -1,14 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<<style>
+<!--
+.emotion{
+    cursor: pointer;
+    facebox:
+}
+.qqFace { margin-top: 4px; background: #fff; padding: 2px; border: 1px #dfe6f6 solid; }
+.qqFace table td { padding: 0px; }
+.qqFace table td img { cursor: pointer; border: 1px #fff solid; }
+.qqFace table td img:hover { border: 1px #0066cc solid; }
+-->
+</style>
 <div class="container">
     <div class="row" id="blog-container">
         <div class="col-sm-8">
             <div class="input-group">
-			    <textarea class="form-control custom-control" rows="2" placeholder="今天你动弹了吗？" style="resize:none"></textarea>     
+			    <textarea id="saytext" name="saytext" class="form-control custom-control" rows="2" placeholder="今天你动弹了吗？" style="resize:none"></textarea>     
 				<span class="input-group-addon btn btn-primary">动弹</span>
 		    </div>
+		    <i class="tweet-icon" title="插入表情">
+                <img src="${pageContext.request.contextPath }/statics/images/common/emotion.png" class="emotion">
+            </i>
             <div id="tweetsContent" >
                	<div class="row">
                		<h4>大家在动弹什么？</h4>
@@ -77,7 +91,12 @@
     </div>
     <script type="text/javascript">
     $(function(){
-        $("#footer").show();debugger
+        $("#footer").show();
+        $('.emotion').qqFace({
+            id : 'facebox', 
+            assign:'saytext', 
+            path:'${pageContext.request.contextPath }/statics/images/arclist/' //表情存放的路径
+        });//$("#show").html(replace_em(str));
         showPageInfo("divPaging_new", 20, 1);
     });
     </script>
