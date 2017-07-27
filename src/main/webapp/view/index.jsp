@@ -9,14 +9,14 @@
     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <title>Demo</title>
-
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/3.3.7/bootstrap.min.css?"+Math.random()/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/common.css?"+Math.random() />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/jquery.pagination.css?"+Math.random() />
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.pagination.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/stringUtil.js?"+Math.random()></script>
     
 </head>
 <body id="body">
@@ -34,7 +34,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Project Name</a>
+                    <a class="navbar-brand" href="#index" id="homeTitle">Project Name</a>
                 </div>
                 <!-- 可折叠响应式导航栏 -->
                 <div class="collapse navbar-collapse" id="main-navbar-collapse">
@@ -80,6 +80,16 @@
 <script type="text/javascript">
     $(function(){
     	$("#footer").hide();
+    	//大标题点击事件
+    	$("#homeTitle").click(function (){
+    		$.each($("#header-nav li"), function(index, element){
+    			if (index == 0) {
+    				$(this).addClass("active");
+    			} else {
+    			    $(this).removeClass("active");
+    			}
+            });
+    	});
         //导航条点击换active 
         $("#header-nav .dropdown").click(function(){
             $.each($("#header-nav li"), function(){

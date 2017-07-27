@@ -38,6 +38,8 @@
 					</div>
                 </div>
                 </c:forEach>
+                <div class="panel-footer" id="divPagingMonitor" style="display: none"></div>
+                <div class="panel-footer"><div id="divPaging_new" class="pagination"></div></div>
             </div>
         </div>
         <div class="col-sm-4" id="">
@@ -75,7 +77,8 @@
     </div>
     <script type="text/javascript">
     $(function(){
-        $("#footer").show();
+        $("#footer").show();debugger
+        showPageInfo("divPaging_new", 20, 1);
     });
     </script>
 </div>

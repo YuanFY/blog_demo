@@ -42,6 +42,10 @@ public class SessionUtil {
      * @version 1.0
      */
     public static UserEntity getUser(HttpServletRequest request) {
-        return (UserEntity)request.getSession(true).getAttribute(SESSION_USER);
+        UserEntity user = (UserEntity)request.getSession(true).getAttribute(SESSION_USER);
+        if (user == null) {
+            user = new UserEntity();
+        }
+        return user;
     }
 }
