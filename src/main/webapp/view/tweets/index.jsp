@@ -1,18 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<<style>
+<style>
 <!--
-.emotion{
-    cursor: pointer;
-    facebox:
-}
 .qqFace { margin-top: 4px; background: #fff; padding: 2px; border: 1px #dfe6f6 solid; }
 .qqFace table td { padding: 0px; }
 .qqFace table td img { cursor: pointer; border: 1px #fff solid; }
 .qqFace table td img:hover { border: 1px #0066cc solid; }
 -->
 </style>
+<!-- 引入qq表情组件 -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.qqFace.js"></script>
+<!-- 引入图片上传组件 -->
+<!-- 引用控制层插件样式 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/statics/css/upload/zyUpload.css" type="text/css">
+<!-- <script type="text/javascript" src="http://www.lanrenzhijia.com/ajaxjs/jquery.min.js"></script> -->
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/core/zyFile.js"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/zyUpload.js"></script>
+<!-- 引用初始化JS -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/core/jq22.js"></script>
+
 <div class="container">
     <div class="row" id="blog-container">
         <div class="col-sm-8">
@@ -20,9 +30,12 @@
 			    <textarea id="saytext" name="saytext" class="form-control custom-control" rows="2" placeholder="今天你动弹了吗？" style="resize:none"></textarea>     
 				<span class="input-group-addon btn btn-primary">动弹</span>
 		    </div>
-		    <i class="tweet-icon" title="插入表情">
-                <img src="${pageContext.request.contextPath }/statics/images/common/emotion.png" class="emotion">
-            </i>
+		    <div>
+                <i class="emotion" title="插入表情"></i>
+                <i class="insertImg" title="插入图片" id="insertImg_i"></i>
+                <div id="insertImg" style="display:none"></div>
+		    </div>
+		    <div class="clearFloat"></div>
             <div id="tweetsContent" >
                	<div class="row">
                		<h4>大家在动弹什么？</h4>
@@ -97,7 +110,24 @@
             assign:'saytext', 
             path:'${pageContext.request.contextPath }/statics/images/arclist/' //表情存放的路径
         });//$("#show").html(replace_em(str));
-        showPageInfo("divPaging_new", 20, 1);
+        
+        $(document).click(function(e){
+        	e = e || window.event;  
+            var dom =  e.srcElement|| e.target;  
+        	var nodeId = dom.id;
+        	if (nodeId != 'insertImg_i') {
+        		$("#insertImg").css("display", "none");
+        		$("#insertImg").html("");
+        	}
+        });
+        
+        $(".insertImg").click(function (){
+        	$("#insertImg").css("display", "");
+        	initUpload("insertImg");
+        });
+        
+        
+        //showPageInfo("divPaging_new", 20, 1);
     });
     </script>
 </div>
