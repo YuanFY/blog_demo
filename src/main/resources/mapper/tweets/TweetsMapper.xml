@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yuanfy.monitorsite.tweets.dao.TweetsMapper">
+	<resultMap id="tweetsMap" type="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">
+		<id column="id" property="id"/>
+		<result column="tweets_content" property="tweetsContent"/>
+		<result column="tweets_images" property="tweetsImages"/>
+		<result column="tweets_time" property="tweetsTime"/>
+		<result column="like_num" property="likeNum"/>
+		<result column="comment_num" property="commentNum"/>
+		<result column="user_id" property="userId"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, tweets_content, tweets_images, tweets_time, like_num, comment_num,
+		user_id
+	</sql>
+	
+	<select id="getById" resultMap="tweetsMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_tweets
+		where id = #{id}
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from tb_tweets where id = #{id}
+	</delete>
+	
+	<insert id="insert" parameterType="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">
+		insert into tb_tweets (id, tweets_content, tweets_images,tweets_time, like_num, comment_num, user_id)
+		values (#{id}, #{tweetsContent}, #{tweetsImages}, #{tweetsTime}, #{likeNum}, #{commentNum}, #{userId})
+	</insert>
+	
+	<update id="update" parameterType="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">
+		update tb_tweets
+		set tweets_content = #{tweetsContent},
+		tweets_images = #{tweetsImages},
+		tweets_time = #{tweetsTime},
+		like_num = #{likeNum},
+		comment_num = #{commentNum},
+		user_id = #{userId}
+		where id = #{id}
+	</update>
+</mapper>

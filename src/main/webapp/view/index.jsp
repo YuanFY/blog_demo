@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/reset.css?"+Math.random() />
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.pagination.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.pagination.js?"+Math.random()></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
     
@@ -105,14 +105,12 @@
 			$.each($(".main-content .tab-pane"), function(){
 			    $(this).html("");
 			});
-           // $(this).tab('show');
             var scrollmem = $('body').scrollTop() || $('html').scrollTop();
             window.location.hash = this.hash;
             $('html,body').scrollTop(scrollmem);
             
             var id = window.location.hash;
             loadUrl(id);
-            $(this).tab('show');
         });
     });
     

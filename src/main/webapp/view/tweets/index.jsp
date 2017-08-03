@@ -28,7 +28,7 @@
         <div class="col-sm-8">
             <div class="input-group">
 			    <textarea id="saytext" name="saytext" class="form-control custom-control" rows="2" placeholder="今天你动弹了吗？" style="resize:none"></textarea>     
-				<span class="input-group-addon btn btn-primary">动弹</span>
+				<span class="input-group-addon btn btn-primary" id="sendTweets">动弹</span>
 		    </div>
 		    <div>
                 <i class="emotion" title="插入表情"></i>
@@ -111,11 +111,12 @@
             path:'${pageContext.request.contextPath }/statics/images/arclist/' //表情存放的路径
         });//$("#show").html(replace_em(str));
         
-        $(document).click(function(e){
+        $(document).mousedown(function(e){
         	e = e || window.event;  
             var dom =  e.srcElement|| e.target;  
         	var nodeId = dom.id;
-        	if (nodeId != 'insertImg_i') {
+        	var htmlContent = $("#insertImg").html()+"";
+        	if (nodeId != 'insertImg_i' && (htmlContent.indexOf(nodeId) < 0)||nodeId=="") {
         		$("#insertImg").css("display", "none");
         		$("#insertImg").html("");
         	}
@@ -123,11 +124,23 @@
         
         $(".insertImg").click(function (){
         	$("#insertImg").css("display", "");
-        	initUpload("insertImg");
+        	var htmlContent = $("#insertImg").html()+"";
+        	if (htmlContent == '') {
+        		initUpload("insertImg");
+        	}
         });
         
+        //发送动弹
+        $("#sendTweets").click(function (){
+        	
+        });
         
-        //showPageInfo("divPaging_new", 20, 1);
     });
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+    $(function (){
+    	showPageInfo("divPaging_new", 20, 1);
+    })
     </script>
 </div>
