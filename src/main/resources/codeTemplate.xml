@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+<template id="entity">
+<![CDATA[
+package ${basePkg}.${subPkg}.entity;
+public class ${entityName}Entity {
+${attributes}
+}
+]]>
+</template>
+
+<template id="mapperInterface">
+<![CDATA[
+package ${basePkg}.${subPkg}.mapper;
+
+import java.util.List;
+import ${basePkg}.common.util.Page;
+import ${basePkg}.${subPkg}.entity.${entityName}Entity;
+
+public interface ${entityName}Mapper{
+
+	void insert(${entityName}Entity ${entityVar}Entity);
+
+	void update(${entityName}Entity ${entityVar}Entity);
+
+	void delete(Long id);
+
+	${entityName}Entity get(Long id);
+
+	List<${entityName}Entity> query(Page page);
+}
+]]>
+</template>
+
+<template id="mapper">
+<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${basePkg}.mapper.${subPkg}.${entityName}Mapper">
+
+	<resultMap id="${entityVar}Map" type="${basePkg}.${subPkg}.entity.${entityName}Entity">
+        ${mapProperties}
+	</resultMap>
+
+	<insert id="insert">
+		insert into ${tableName}(${insertFields})
+		values(${insertValues})
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		update ${tableName}
+		<set>
+            ${updateSets}
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from ${tableName} where id = #{id}
+	</delete>
+
+	<select id="get" resultMap="${entityVar}Map">
+		select * from ${tableName} where id = #{id}
+	</select>
+
+	<select id="query" resultMap="${entityVar}Map">
+		select * from ${tableName}
+	</select>
+</mapper>
+]]>
+</template>
+
+<template id="service">
+<![CDATA[
+package ${basePkg}.${subPkg}.service;
+
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ${basePkg}.base.BaseService;
+
+@Service
+public class ${entityName}Service extends BaseService {
+	
+}
+]]>
+</template>
+	
+<template id="controller">
+<![CDATA[
+package ${basePkg}.${subPkg}.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import ${basePkg}.common.util.Page;
+import ${basePkg}..framework.dto.AjaxResult;
+import ${basePkg}.${subPkg}.entity.${entityName}Entity;
+import ${basePkg}.${subPkg}.service.${entityName}Service;
+
+@Controller
+public class ${entityName}Controller {
+	@Autowired private ${entityName}Service ${entityVar}Service;
+
+	@RequestMapping("edit")
+	public String edit(Long id, Model model) {
+		if (id != null){
+			model.addAttribute("${entityVar}", ${entityVar}Service.get(id));
+		}
+		return "";
+	}
+
+	@RequestMapping("save")
+	@ResponseBody
+	public AjaxResult save(${entityName}Entity ${entityVar}Entity) {
+		${entityVar}Service.save(${entityVar}Entity);
+		return null;
+	}
+
+	@RequestMapping("delete")
+	@ResponseBody
+	public AjaxResult delete(Long id) {
+		${entityVar}Service.delete(id);
+		return null;
+	}
+	
+	@RequestMapping("list")
+	public void list(Page page, Model model){
+		${entityVar}Service.query(page);
+		model.addAttribute("page", page);
+	}
+}
+]]>
+</template>
+
+</templates>
