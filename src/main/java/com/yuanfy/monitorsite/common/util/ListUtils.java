@@ -13,7 +13,7 @@ import java.util.List;
  * @time 下午8:39:42
  * @version 1.0
  */
-public class ListUtils<E>{
+public class ListUtils{
 	
 	/**
 	 * @description 判断list集合是否为空
@@ -21,7 +21,7 @@ public class ListUtils<E>{
 	 * @time 下午8:42:05
 	 * @version 1.0
 	 */
-	public boolean isEmpty(List<E> list){
+	public static boolean isEmpty(@SuppressWarnings("rawtypes") List list){
 		if(list == null || list.size() == 0){
 			return true;
 		}

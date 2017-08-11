@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<style>
-<!--
-.qqFace { margin-top: 4px; background: #fff; padding: 2px; border: 1px #dfe6f6 solid; }
-.qqFace table td { padding: 0px; }
-.qqFace table td img { cursor: pointer; border: 1px #fff solid; }
-.qqFace table td img:hover { border: 1px #0066cc solid; }
--->
-</style>
+
 <!-- 引入qq表情组件 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.qqFace.js"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.min.js"></script> --%>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.qqFace.js"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.qqface.min.js"></script>
 <!-- 引入图片上传组件 -->
 <!-- 引用控制层插件样式 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/statics/css/upload/zyUpload.css" type="text/css">
@@ -21,18 +15,18 @@
 <!-- 引用控制层插件 -->
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/zyUpload.js"></script>
 <!-- 引用初始化JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/core/jq22.js"></script>
 
 <div class="container">
     <div class="row" id="blog-container">
         <div class="col-sm-8">
             <div class="input-group">
-			    <textarea id="saytext" name="saytext" class="form-control custom-control" rows="2" placeholder="今天你动弹了吗？" style="resize:none"></textarea>     
+			    <textarea id="tweetsContent" name="tweetsContent" class="form-control custom-control" rows="2" placeholder="今天你动弹了吗？" style="resize:none"></textarea>     
 				<span class="input-group-addon btn btn-primary" id="sendTweets">动弹</span>
 		    </div>
 		    <div>
-                <i class="emotion" title="插入表情"></i>
+                <i class="emotion" title="插入表情" id="qqFace"></i>
                 <i class="insertImg" title="插入图片" id="insertImg_i"></i>
+                <span id="left" style="top: 5px;position: relative;color: #BEBEBE"></span>
                 <div id="insertImg" style="display:none"></div>
 		    </div>
 		    <div class="clearFloat"></div>
@@ -105,13 +99,43 @@
     <script type="text/javascript">
     $(function(){
         $("#footer").show();
-        $('.emotion').qqFace({
-            id : 'facebox', 
-            assign:'saytext', 
-            path:'${pageContext.request.contextPath }/statics/images/arclist/' //表情存放的路径
-        });//$("#show").html(replace_em(str));
+        var oldLength = '';
+        //文本框文字的限制
+        $('#tweetsContent').on('change keydown keyup input', function(event) {
+	        var textarea = $(this);
+	        var value = $(this).val();
+	        var length = getLenth(value);
+	        if (length > 200) {
+	            textarea.val(oldLength);
+	        } else {
+	            oldLength = value;
+	            $('#left').html('还可以输入'+ (200 -length) + '个字符');
+	        }
+	    });
+        function getLenth(str) {
+            //str = str.replace(/\[:([\s\S]+?)\]/g, 'F'); //把所有表情都变成F，一个字符
+            str = str.replace(/[\u4e00-\u9fa5]/g, 'CN'); //把所有汉字都变成CN，两个字符 
+            return str.length;
+        }
+        //加载qq组件
+        $.qqface({
+            before : function(textarea, code){
+                var value = textarea.val();
+                var length = getLenth(value);
+                return length < 199;
+            }, //要在插入之前执行
+            after: function(textarea, code){
+                var value = textarea.val();
+                var length = getLenth(value);
+                $('#left').html('还可以输入'+ (200 -length) + '个字符');
+                $('#tweetsContent').change();
+            }, //在插入之后执行
+            imgPath : '${pageContext.request.contextPath}/statics/images/gif/',
+            textarea : $('#tweetsContent'),
+            handle : $('#qqFace')
+        });
         
-        $(document).mousedown(function(e){
+        $(document).mousedown(function(e){ 
         	e = e || window.event;  
             var dom =  e.srcElement|| e.target;  
         	var nodeId = dom.id;
@@ -132,15 +156,18 @@
         
         //发送动弹
         $("#sendTweets").click(function (){
-        	
+        	//alert(1);
+        	$("#left").html($("#tweetsContent").val());
+        	/* $.ajax({
+                url:'${pageContext.request.contextPath}/tweets/save.html',
+                data:{tweetsContent:$("#tweetsContent").val()},
+                dataType: 'json',
+                success: function(result){
+                    
+                }
+            }); */
         });
-        
+        showPageInfo("divPaging_new", 20, 1);
     });
-    </script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">
-    $(function (){
-    	showPageInfo("divPaging_new", 20, 1);
-    })
     </script>
 </div>

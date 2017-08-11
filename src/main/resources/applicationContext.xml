@@ -21,7 +21,7 @@
     </context:component-scan>
     
     <!-- 开启聊天室服务器 -->
-    <bean class="com.yuanfy.monitorsite.socket.init.InitChatServer"/>
+<!--     <bean class="com.yuanfy.monitorsite.socket.init.InitChatServer"/> -->
 	
     <!-- 加载配置属性文件 -->
 	<context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties"/>
