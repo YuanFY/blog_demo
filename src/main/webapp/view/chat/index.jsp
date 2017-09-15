@@ -95,7 +95,7 @@ $(function (){
 	
 	//获取服务端信息
 	getReceiveMessage();
-	setInterval("getReceiveMessage()", 500);
+	//setInterval("getReceiveMessage()", 500);
 	
 	//用户名验证
 	$("input[name=message]").tooltip();

@@ -15,7 +15,7 @@
 <!-- 引用控制层插件 -->
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/zyUpload.js"></script>
 <!-- 引用初始化JS -->
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/core/initUpload.js?"+Math.random()></script>
 <div class="container">
     <div class="row" id="blog-container">
         <div class="col-sm-8">
@@ -140,7 +140,8 @@
             var dom =  e.srcElement|| e.target;  
         	var nodeId = dom.id;
         	var htmlContent = $("#insertImg").html()+"";
-        	if (nodeId != 'insertImg_i' && (htmlContent.indexOf(nodeId) < 0)||nodeId=="") {
+        	
+        	if (nodeId != 'insertImg_i' && htmlContent.indexOf(nodeId) < 0 && htmlContent.indexOf($(e).html())) {
         		$("#insertImg").css("display", "none");
         		$("#insertImg").html("");
         	}
