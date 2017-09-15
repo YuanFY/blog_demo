@@ -172,4 +172,7 @@ value{padding-left: 5px}
 .clearFloat{
 	clear:both;
 }
+textarea{
+	resize: none;
+}
 

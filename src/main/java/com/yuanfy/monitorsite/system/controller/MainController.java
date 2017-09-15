@@ -40,6 +40,11 @@ public class MainController{
 		return "/index";
 	}
 	
+	@RequestMapping(value = "/test/index")
+    public String testIndex(HttpServletRequest request,Model model){
+        return "/test/index";
+    }
+	
 	@RequestMapping(value = "login")
 	public String login(){
 		return "login";

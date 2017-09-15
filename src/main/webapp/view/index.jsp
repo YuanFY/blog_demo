@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/reset.css?"+Math.random() />
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.pagination.js?"+Math.random()></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
@@ -46,6 +47,7 @@
                         <li><a href="#tweets" data-toggle="tab">动弹</a></li>
                         <li><a href="#sponsor" data-toggle="tab">赞助</a></li>
                         <li><a href="#chat" data-toggle="tab">公共聊天室</a></li>
+                        <li><a href="#test" data-toggle="tab">功能测试</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" id="header-right"> 
                         <li><a href="${pageContext.request.contextPath }/register.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
@@ -65,6 +67,7 @@
         <div id="question" class="tab-pane"></div>
         <div id="sponsor" class="tab-pane"></div>
         <div id="chat" class="tab-pane"></div>
+        <div id="test" class="tab-pane"></div>
     </div>
     
     <!-- 底部 -->
@@ -154,6 +157,8 @@
             showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
         } else if (id == "#chat"){
             showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+        } else if (id == "#test"){
+            showContentById('${pageContext.request.contextPath}/test/index.html','', 'test');
         } else {
             showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
         }

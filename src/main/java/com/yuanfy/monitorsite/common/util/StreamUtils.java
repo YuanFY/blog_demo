@@ -3,6 +3,7 @@ package com.yuanfy.monitorsite.common.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -33,6 +34,12 @@ public class StreamUtils {
     public static void close(PrintWriter printWriter) {
         if (printWriter != null) {
             printWriter.close();
+        }
+    }
+    
+    public static void close(InputStream in) throws IOException {
+        if (in != null) {
+            in.close();
         }
     }
     
