@@ -30,7 +30,7 @@
         </div>
     </form>
 </div>
-<div class="row">
+<div class="row" >
     <form method="post" enctype="multipart/form-data" id="form2">
         <div><label>2、采用springmvc的方式</label></div>
         <div class="col-sm-7" style="padding-left:0px">
