@@ -134,14 +134,14 @@
             textarea : $('#tweetsContent'),
             handle : $('#qqFace')
         });
-        
-        $(document).mousedown(function(e){ 
+        //加载上传组件
+        $(document).mousedown(function(e){ debugger
         	e = e || window.event;  
             var dom =  e.srcElement|| e.target;  
         	var nodeId = dom.id;
         	var htmlContent = $("#insertImg").html()+"";
         	
-        	if (nodeId != 'insertImg_i' && htmlContent.indexOf(nodeId) < 0 && htmlContent.indexOf($(e).html())) {
+        	if ((nodeId != 'insertImg_i' && htmlContent.indexOf($(dom).html()) < 0) || $(dom).html() == "") {
         		$("#insertImg").css("display", "none");
         		$("#insertImg").html("");
         	}
@@ -151,7 +151,7 @@
         	$("#insertImg").css("display", "");
         	var htmlContent = $("#insertImg").html()+"";
         	if (htmlContent == '') {
-        		initUpload("insertImg");
+        		initUpload("insertImg", "${pageContext.request.contextPath}/tweets/uploadImg.html","image/gif,image/jpeg,image/png");
         	}
         });
         

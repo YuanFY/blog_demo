@@ -1,6 +1,7 @@
  /* www.jq22.com */
 (function($,undefined){
 	$.fn.zyUpload = function(options,param){
+		var accept = options.accept;
 		var otherArgs = Array.prototype.slice.call(arguments, 1);
 		if (typeof options == 'string') {
 			var fn = this[0][options];
@@ -59,7 +60,7 @@
 	            	html += '				<div class="convent_choice">';
 	            	html += '					<div class="andArea">';
 	            	html += '						<div class="filePicker">点击选择文件</div>';
-	            	html += '						<input id="fileImage" type="file" size="30" name="fileselect[]" '+multiple+'>';
+	            	html += '						<input id="fileImage" type="file" size="30" name="fileselect[]" '+multiple+' accept='+accept+'>';
 	            	html += '					</div>';
 	            	html += '				</div>';
 					html += '				<span id="fileDragArea" class="upload_drag_area">或者将文件拖到此处</span>';
