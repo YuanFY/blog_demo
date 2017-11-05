@@ -98,10 +98,10 @@
 				validateEmail(this, 50, $(this).attr("id")+"Error");
 			});
 			$("#userName").on("input propertychange focus", function(){
-				validateCommonInput(this, 20, "昵称", $(this).attr("id")+"Error", true);
+				validateCommonInput(this, 50, "昵称", $(this).attr("id")+"Error", true);
 			});
 			$("#password").on("input propertychange focus", function(){
-				validateCommonInput(this, 20, "密码", $(this).attr("id")+"Error", false);
+				validateCommonInput(this, 50, "密码", $(this).attr("id")+"Error", false);
 			});
 			$("#registerBtn").click(function(){
 				var emailValidate = validateEmail($("#email"), 50, $("#email").attr("id")+"Error");
