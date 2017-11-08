@@ -13,16 +13,24 @@
 		insert into tb_sys_user(
 			name, 
 			password,
+			email,
+			phone,
 			register_time
 		) values (
 			#{name}, 
 			#{password},
-			#{registerTime}
+			#{email},
+			#{phone},
+			now()
 		)	
 	</insert>
 	
 	<update id="update">
-		update tb_sys_user set password = #{password} where id = #{id}
+		update tb_sys_user set 
+			password = #{password},
+			email = #{email},
+			phone = #{phone}
+		where id = #{id}
 	</update>
 	
 	<delete id="deleteById">
@@ -31,5 +39,10 @@
 	
 	<select id="getById">
 		select * from tb_sys_user
+	</select>
+	
+	<select id="isValidateNameUnique" resultType="java.lang.Boolean">
+		select count(id)>1 from tb_sys_user
+		where name = #{name}
 	</select>
 </mapper>

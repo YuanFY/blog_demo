@@ -50,7 +50,7 @@
                         <li><a href="#test" data-toggle="tab">功能测试</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" id="header-right"> 
-                        <li><a href="${pageContext.request.contextPath }/register/index.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
+                        <li><a href="${pageContext.request.contextPath }/system/register/index.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
                         <li><a href="${pageContext.request.contextPath }/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
                     </ul>
                 </div><!-- /.nav-collapse -->

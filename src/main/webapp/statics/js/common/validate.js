@@ -4,7 +4,7 @@
  * @param maxLen 限制最大长度
  * @param errorId 显示错误的id
  */
-function validateEmail(event, maxLen, errorId){debugger
+function validateEmail(event, maxLen, errorId){
 	var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+.([a-zA-Z])+/;
 	var value = $(event).val();
 	if (value == "") {

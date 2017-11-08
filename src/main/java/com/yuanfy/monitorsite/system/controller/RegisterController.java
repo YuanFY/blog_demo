@@ -2,7 +2,6 @@ package com.yuanfy.monitorsite.system.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yuanfy.monitorsite.framework.dto.AjaxResult;
+import com.yuanfy.monitorsite.system.entity.UserEntity;
 import com.yuanfy.monitorsite.system.service.UserService;
 
 /**
@@ -26,17 +26,17 @@ public class RegisterController{
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/register/index")
+	@RequestMapping(value = "/system/register/index")
 	public String index(HttpServletRequest request,Model model){
 		return "/system/register/index";
 	}
 	
-	@RequestMapping(value = "/register/save")
+	@RequestMapping(value = "/system/register/save")
 	@ResponseBody
-	public AjaxResult save(HttpServletRequest request,Model model){
+	public AjaxResult save(UserEntity entity){
 		AjaxResult result = new AjaxResult(1);
 		try{
-			result = 
+			result = userService.save(entity);
 		} catch (Exception e) {
 			result.setError(0);
 			log.error("注册用户失败:", e);

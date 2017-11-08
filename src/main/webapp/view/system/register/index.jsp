@@ -12,12 +12,7 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/3.3.7/bootstrap.min.css?"+Math.random()/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/common.css?"+Math.random() />
-
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/validate.js?"+Math.random()></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/gVerify.js?"+Math.random()></script>
+<jsp:include page="../../common/js.jsp"></jsp:include>
 <style type="text/css">
 	.modal-dialog{
 		width: 680px;
@@ -41,17 +36,17 @@
 			            	<form id="emailRegisterForm">
 							<div class="input-group  margin-top20">
 					            <span class="input-group-addon">邮箱</span>
-					            <input type="text" class="form-control" placeholder="请输入邮箱" id="email">
+					            <input type="text" class="form-control" placeholder="请输入邮箱" id="email" name="email">
 					        </div>
 					        <div id="emailError" style="color:red; padding-left: 53px; "></div>
 					        <div class="input-group  margin-top20">
 					            <span class="input-group-addon">昵称</span>
-					            <input type="text" class="form-control" placeholder="请输入昵称，至多20个" id="userName">
+					            <input type="text" class="form-control" placeholder="请输入昵称，至多20个" id="name" name="name">
 					        </div>
-					        <div id="userNameError" style="color:red; padding-left: 53px; "></div>
+					        <div id="nameError" style="color:red; padding-left: 53px; "></div>
 					        <div class="input-group  margin-top20">
 					            <span class="input-group-addon">密码</span>
-					            <input type="password" class="form-control" placeholder="请输入密码，字母或特殊符号和数字结合" id="password">
+					            <input type="password" class="form-control" placeholder="请输入密码，字母或特殊符号和数字结合" id="password" name="password">
 					        </div>
 					        <div id="passwordError" style="color:red; padding-left: 53px; "></div>
 					        <div class="row" style="margin: 0px">
@@ -97,15 +92,18 @@
 			$("#email").on("input propertychange focus", function(){
 				validateEmail(this, 50, $(this).attr("id")+"Error");
 			});
-			$("#userName").on("input propertychange focus", function(){
+			$("#name").on("input propertychange focus", function(){
 				validateCommonInput(this, 50, "昵称", $(this).attr("id")+"Error", true);
 			});
 			$("#password").on("input propertychange focus", function(){
 				validateCommonInput(this, 50, "密码", $(this).attr("id")+"Error", false);
 			});
+			$("#verifyCode").focus(function(){
+				$("#"+$(this).attr("id")+"Error").html("");
+			});
 			$("#registerBtn").click(function(){
 				var emailValidate = validateEmail($("#email"), 50, $("#email").attr("id")+"Error");
-				var userNameValidate = validateCommonInput($("#userName"), 20, "昵称", $("#userName").attr("id")+"Error", true);
+				var nameValidate = validateCommonInput($("#name"), 20, "昵称", $("#name").attr("id")+"Error", true);
 				var passwordValidate = validateCommonInput($("#password"), 20, "密码", $("#password").attr("id")+"Error", false);
 				var verifyCodeValidate = verifyCode.validate($("#verifyCode").val());
 				if ($("#verifyCode").val() == '') {
@@ -114,18 +112,23 @@
 				} else if (!verifyCodeValidate) {
 					$("#verifyCodeError").html("验证码错误");
 				}
-				if (emailValidate && userNameValidate && passwordValidate && verifyCodeValidate) {
+				if (emailValidate && nameValidate && passwordValidate && verifyCodeValidate) {
 					var options  = {    
-						    url: "${pageContext.request.contextPath}/",
+						    url: "${pageContext.request.contextPath}/system/register/save.html",
 					        type:'post',    
 					        success:function(result)    
 					        {    
-					            
+					            if(result.error == 1){
+					            	windows.location.href="${pageContext.request.contextPath}/index.html";
+					            }else{
+					            	alert(0);
+					            }
 					        },
 					        error:function(data){
+					        	
 					        }
 					    };    
-					    var form = $("#"+id);  
+					    var form = $("#emailRegisterForm");  
 					    form.ajaxSubmit(options); 
 				}
 			});

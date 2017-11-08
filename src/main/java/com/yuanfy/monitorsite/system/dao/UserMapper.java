@@ -1,5 +1,7 @@
 package com.yuanfy.monitorsite.system.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yuanfy.monitorsite.base.BaseMapper;
 import com.yuanfy.monitorsite.system.entity.UserEntity;
 
@@ -11,5 +13,5 @@ import com.yuanfy.monitorsite.system.entity.UserEntity;
  */
 public interface UserMapper extends BaseMapper<UserEntity>{
 	
-	public void isValidateUnique(String userName);
+	public boolean isValidateNameUnique(@Param(value="name")String name);
 }
