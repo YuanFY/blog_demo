@@ -38,7 +38,7 @@ function validateCommonInput(event, maxLen, inputName, errorId, isPattern){
 		$("#"+errorId).html(inputName + "不能为空");
 		return false;
 	}
-	if (value.length > maxLen) {
+	if (maxLen != null && value.length > maxLen) {
 		$("#"+errorId).html(inputName + "最大长度不能超过" + maxLen);
 		return false;
 	}

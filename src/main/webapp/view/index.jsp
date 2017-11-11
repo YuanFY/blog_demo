@@ -52,12 +52,21 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right" id="header-right1" <c:if test="${not empty user }">style="display:none"</c:if>> 
                         <li><a href="${pageContext.request.contextPath }/system/register/index.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
-                        <li><a href="${pageContext.request.contextPath }/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
+                        <li><a href="${pageContext.request.contextPath }/system/login/index.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
                     </ul>
                     	
                     <ul class="nav navbar-nav navbar-right">
-                    	<li>${user.name }</li>
-                    	<li><a href="#">test</li>
+                    	<li><a>${user.name }, 您好</a></li>
+                    	<li>
+                    		<a style="padding-left:0px" class="dropdown-toggle" data-toggle="dropdown" id="mySpaceDropMenu">我的空间
+                    			<span class="caret"></span>
+                    		</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="mySpaceDropMenu" id="mySpaceDropMenuUL">
+								<li role="presentation">
+						            <a role="menuitem" tabindex="-1" href="#">个人资料修改</a>
+						        </li>
+							</ul>
+                    	</li>
                     </ul>
                 </div><!-- /.nav-collapse -->
             </div><!-- /.container -->

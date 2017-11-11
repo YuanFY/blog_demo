@@ -10,6 +10,9 @@
 .header .navbar .navbar-header a, .header .navbar .nav a{
 	color:white;
 }
+#mySpaceDropMenuUL a{
+	color: black;
+}
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus,
 	.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus{
 	color:white;
