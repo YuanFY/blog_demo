@@ -1,10 +1,14 @@
 package com.yuanfy.monitorsite.system.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yuanfy.monitorsite.common.Constants;
+import com.yuanfy.monitorsite.framework.SessionUtil;
 import com.yuanfy.monitorsite.framework.dto.AjaxResult;
 import com.yuanfy.monitorsite.system.dao.UserMapper;
 import com.yuanfy.monitorsite.system.entity.UserEntity;
@@ -23,7 +27,7 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public AjaxResult save(UserEntity entity){
+	public AjaxResult save(UserEntity entity, HttpServletRequest requerst){
 		AjaxResult result = new AjaxResult(1);
 		if (entity == null) {
 			result.setError(0);
@@ -39,9 +43,8 @@ public class UserService {
 			result.setMsg("该昵称已被注册，请换一个！");
 		}else {
 			userMapper.insert(entity);
-			//注册后 添加session
+			SessionUtil.setAttr(requerst, Constants.SESSION_USER_KEY, entity);
 		}
 		return result;
 	}
-	
 }

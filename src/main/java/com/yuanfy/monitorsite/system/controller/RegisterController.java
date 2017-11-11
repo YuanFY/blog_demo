@@ -33,10 +33,10 @@ public class RegisterController{
 	
 	@RequestMapping(value = "/system/register/save")
 	@ResponseBody
-	public AjaxResult save(UserEntity entity){
+	public AjaxResult save(UserEntity entity, HttpServletRequest request){
 		AjaxResult result = new AjaxResult(1);
 		try{
-			result = userService.save(entity);
+			result = userService.save(entity, request);
 		} catch (Exception e) {
 			result.setError(0);
 			log.error("注册用户失败:", e);

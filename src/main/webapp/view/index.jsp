@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -49,9 +50,14 @@
                         <li><a href="#chat" data-toggle="tab">公共聊天室</a></li>
                         <li><a href="#test" data-toggle="tab">功能测试</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" id="header-right"> 
+                    <ul class="nav navbar-nav navbar-right" id="header-right1" <c:if test="${not empty user }">style="display:none"</c:if>> 
                         <li><a href="${pageContext.request.contextPath }/system/register/index.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
                         <li><a href="${pageContext.request.contextPath }/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
+                    </ul>
+                    	
+                    <ul class="nav navbar-nav navbar-right">
+                    	<li>${user.name }</li>
+                    	<li><a href="#">test</li>
                     </ul>
                 </div><!-- /.nav-collapse -->
             </div><!-- /.container -->

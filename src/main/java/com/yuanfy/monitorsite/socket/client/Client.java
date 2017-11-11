@@ -40,7 +40,7 @@ public class Client extends Socket{
             //2、启动接收服务端信息的线程
             new Thread(new ReceiveMessageFromServerTask(client)).start();
             //3、发送消息注册信息
-            sendMessage(user, user.getUserName());
+            sendMessage(user, user.getName());
         }
         catch (IOException e) {
             log.error("创建客户端socket出错：" + e);

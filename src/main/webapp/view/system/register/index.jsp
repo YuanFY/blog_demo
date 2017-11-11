@@ -119,7 +119,7 @@
 					        success:function(result)    
 					        {    
 					            if(result.error == 1){
-					            	windows.location.href="${pageContext.request.contextPath}/index.html";
+					            	window.location.href="${pageContext.request.contextPath}/index.html";
 					            }else{
 					            	alert(0);
 					            }
