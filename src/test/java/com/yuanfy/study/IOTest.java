@@ -33,6 +33,5 @@ public class IOTest {
 		System.out.println(sb.toString());
 		System.out.println(System.getProperty("file.encoding"));
 		
-		ClassPathResource
 	}
 }

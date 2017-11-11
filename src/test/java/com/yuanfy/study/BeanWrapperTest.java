@@ -11,12 +11,12 @@ public class BeanWrapperTest {
     public static void main(String[] args) {
         UserEntity user = new UserEntity();
         BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(user);
-        bw.setPropertyValue("userName", "zs");
-        System.out.println(user.getUserName());
+        bw.setPropertyValue("name", "zs");
+        System.out.println(user.getName());
         
-        PropertyValue value = new PropertyValue("userName", "ls");
+        PropertyValue value = new PropertyValue("name", "ls");
         bw.setPropertyValue(value);
-        System.out.println(user.getUserName());
+        System.out.println(user.getName());
         
     }
 }
