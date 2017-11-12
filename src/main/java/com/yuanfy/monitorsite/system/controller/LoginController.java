@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yuanfy.monitorsite.framework.SessionUtil;
 import com.yuanfy.monitorsite.framework.dto.AjaxResult;
 import com.yuanfy.monitorsite.system.service.UserService;
 
@@ -42,5 +43,13 @@ public class LoginController{
 		}
 		return result;
 	}
-	
+	@RequestMapping(value = "/system/login/logout")
+	public String logout(HttpServletRequest request){
+		try{
+			SessionUtil.removeUser(request);
+		} catch (Exception e) {
+			log.error("用户退出失败:", e);
+		}
+		return "index";
+	}
 }

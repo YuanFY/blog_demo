@@ -44,4 +44,14 @@ public class SessionUtil {
         UserEntity user = (UserEntity)request.getSession(true).getAttribute(Constants.SESSION_USER_KEY);
         return user;
     }
+    
+    /**
+     * @description 移除用户信息
+     * @author YuanFY
+     * @date 2017年11月12日 下午3:26:45
+     * @version 1.0
+     */
+    public static void removeUser(HttpServletRequest request) {
+        request.getSession(true).removeAttribute(Constants.SESSION_USER_KEY);
+    }
 }
