@@ -104,7 +104,7 @@
         $('#tweetsContent').on('change keydown keyup input', function(event) {
 	        var textarea = $(this);
 	        var value = $(this).val();
-	        var length = getLenth(value);
+	        var length = getLenth_common(value);
 	        if (length > 200) {
 	            textarea.val(oldLength);
 	        } else {
@@ -112,30 +112,12 @@
 	            $('#left').html('还可以输入'+ (200 -length) + '个字符');
 	        }
 	    });
-        function getLenth(str) {
-            //str = str.replace(/\[:([\s\S]+?)\]/g, 'F'); //把所有表情都变成F，一个字符
-            str = str.replace(/[\u4e00-\u9fa5]/g, 'CN'); //把所有汉字都变成CN，两个字符 
-            return str.length;
-        }
+        
         //加载qq组件
-        $.qqface({
-            before : function(textarea, code){
-                var value = textarea.val();
-                var length = getLenth(value);
-                return length < 199;
-            }, //要在插入之前执行
-            after: function(textarea, code){
-                var value = textarea.val();
-                var length = getLenth(value);
-                $('#left').html('还可以输入'+ (200 -length) + '个字符');
-                $('#tweetsContent').change();
-            }, //在插入之后执行
-            imgPath : '${pageContext.request.contextPath}/statics/images/gif/',
-            textarea : $('#tweetsContent'),
-            handle : $('#qqFace')
-        });
+        initQQFace_common($('#qqFace'), $('#tweetsContent'), $('#left'));
+        
         //加载上传组件
-        $(document).mousedown(function(e){ debugger
+        $(document).mousedown(function(e){ 
         	e = e || window.event;  
             var dom =  e.srcElement|| e.target;  
         	var nodeId = dom.id;
@@ -158,7 +140,7 @@
         //发送动弹
         $("#sendTweets").click(function (){
         	//alert(1);
-        	$("#left").html($("#tweetsContent").val());
+        	$("#left").html(replaceQQContent_common($("#tweetsContent").val()));
         	/* $.ajax({
                 url:'${pageContext.request.contextPath}/tweets/save.html',
                 data:{tweetsContent:$("#tweetsContent").val()},
@@ -168,7 +150,7 @@
                 }
             }); */
         });
-        showPageInfo("divPaging_new", 20, 1);
+        showPageInfo_common("divPaging_new", 20, 1);
     });
     </script>
 </div>

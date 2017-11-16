@@ -168,21 +168,21 @@
             $(this).empty();
         });
         if (id == "#index") {
-            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
         } else if (id == "#blog"){
-            showContentById('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+            showContentById_common('${pageContext.request.contextPath}/blog/index.html','', 'blog');
         } else if (id == "#readBook"){
-            showContentById('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+            showContentById_common('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
         } else if (id == "#tweets"){
-            showContentById('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+            showContentById_common('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
         } else if (id == "#question"){
-            showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
+            showContentById_common('${pageContext.request.contextPath}/question/index.html','', 'question');
         } else if (id == "#chat"){
-            showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+            showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         } else if (id == "#test"){
-            showContentById('${pageContext.request.contextPath}/test/index.html','', 'test');
+            showContentById_common('${pageContext.request.contextPath}/test/index.html','', 'test');
         } else {
-            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
         }
     }
     /**
@@ -196,17 +196,17 @@
         });
         var id = $(e.target).attr('href');
         if (id == "#index") {
-            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
         } else if (id == "#blog"){
-        	showContentById('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+        	showContentById_common('${pageContext.request.contextPath}/blog/index.html','', 'blog');
         } else if (id == "#readBook"){
-            showContentById('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+            showContentById_common('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
         } else if (id == "#tweets"){
-            showContentById('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+            showContentById_common('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
         } else if (id == "#question"){
-            showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
+            showContentById_common('${pageContext.request.contextPath}/question/index.html','', 'question');
         } else if (id == "#chat"){
-            showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+            showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         }
     }); */
 
