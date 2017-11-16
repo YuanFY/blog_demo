@@ -130,7 +130,7 @@
         });
         
         $(".insertImg").click(function (){
-        	$("#insertImg").css("display", "");
+        	$("#insertImg").show();
         	var htmlContent = $("#insertImg").html()+"";
         	if (htmlContent == '') {
         		initUpload("insertImg", "${pageContext.request.contextPath}/tweets/uploadImg.html","image/gif,image/jpeg,image/png");
@@ -139,16 +139,8 @@
         
         //发送动弹
         $("#sendTweets").click(function (){
-        	//alert(1);
         	$("#left").html(replaceQQContent_common($("#tweetsContent").val()));
-        	/* $.ajax({
-                url:'${pageContext.request.contextPath}/tweets/save.html',
-                data:{tweetsContent:$("#tweetsContent").val()},
-                dataType: 'json',
-                success: function(result){
-                    
-                }
-            }); */
+        	ajaxRequest_common("${pageContext.request.contextPath}/tweets/save.html", {content : replaceQQContent_common($("#tweetsContent").val())});
         });
         showPageInfo_common("divPaging_new", 20, 1);
     });

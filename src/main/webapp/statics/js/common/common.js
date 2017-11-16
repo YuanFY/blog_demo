@@ -23,7 +23,7 @@ function showContentById_common(url,params,id){
  		}
  	 });
 };
-
+//**************************************分页**********************************************
 //查询参数
 var display=10;
 var pageLimit=10;
@@ -80,11 +80,41 @@ function getLenth_common(str) {
 //    str = str.replace(/[\u4e00-\u9fa5]/g, 'CN'); //把所有汉字都变成CN，两个字符 
     return str.length;
 }
-
+/**
+ * 替换QQ表情
+ * @param str 还有QQ表情的字符串
+ * @returns
+ */
 function replaceQQContent_common(str){
 	str = str.replace(/\</g,'&lt;');
 	str = str.replace(/\>/g,'&gt;');
 	str = str.replace(/\n/g,'<br/>');
 	str = str.replace(/\[\:([a-zA-Z0-9_\u4e00-\u9fa5]*)\]/g,'<img src="statics/images/gif/$1.gif" border="0" />');
 	return str;
+}
+
+//**************************************异步提交函数**********************************************
+/**
+ * 异步请求公共函数
+ * @param url      -- not null
+ * @param params   -- default null
+ * @param dataType -- default json
+ * @param methodType   -- default get
+ * @param isSync      是否同步  default true
+ * @param successMsg  成功信息 default null
+ * @param errorMsg    错误信息 default null
+ * @returns
+ */
+function ajaxRequest_common(url, params, dataType, methodType, isSync, successMsg, errorMsg){
+	$.ajax({
+	    url : url,
+	    data : params,
+	    type : methodType == null ? "get" : methodType,
+	    async : isSync == null ? true : isSync,
+	    dataType: dataType == null ? "json" : dataType,
+	    success : function(result){
+	        
+	    },
+	    error : {}
+	}); 
 }
