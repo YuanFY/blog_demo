@@ -140,7 +140,9 @@
         //发送动弹
         $("#sendTweets").click(function (){
         	$("#left").html(replaceQQContent_common($("#tweetsContent").val()));
-        	ajaxRequest_common("${pageContext.request.contextPath}/tweets/save.html", {content : replaceQQContent_common($("#tweetsContent").val())});
+        	ajaxRequest_common("${pageContext.request.contextPath}/tweets/save.html", 
+        			{tweetsContent : $("#tweetsContent").val()},
+        			null, null, null, "发布成功");
         });
         showPageInfo_common("divPaging_new", 20, 1);
     });

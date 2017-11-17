@@ -113,7 +113,15 @@ function ajaxRequest_common(url, params, dataType, methodType, isSync, successMs
 	    async : isSync == null ? true : isSync,
 	    dataType: dataType == null ? "json" : dataType,
 	    success : function(result){
-	        
+	    	var msg = null;
+	        if (result.error == 1) {
+	        	msg = (successMsg != null ? successMsg : result.msg);
+	        }else if (result.error == 0) {
+	        	msg = (errorMsg != null ? errorMsg : result.msg);
+	        } else {
+	        	msg = result.msg
+	        }
+	        alert(msg);
 	    },
 	    error : {}
 	}); 
