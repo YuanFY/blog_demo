@@ -1,4 +1,4 @@
-package com.yuanfy.study;
+package com.yuanfy.study.bean.resolve;
 
 public class Car {
 	private int maxSpeed;

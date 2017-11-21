@@ -1,4 +1,4 @@
-package com.yuanfy.study;
+package com.yuanfy.study.bean.resolve;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

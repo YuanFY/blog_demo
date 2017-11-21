@@ -1,4 +1,4 @@
-package com.yuanfy.study;
+package com.yuanfy.study.bean.resolve;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
