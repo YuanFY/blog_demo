@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.yuanfy.monitorsite.common.Constants;
 import com.yuanfy.monitorsite.system.entity.UserEntity;
 
 /**
@@ -15,8 +16,6 @@ import com.yuanfy.monitorsite.system.entity.UserEntity;
 public class SessionUtil {
     protected static final Logger logger = Logger.getLogger(SessionUtil.class);
 
-    public static final String SESSION_USER = "session_user";// 用户信息
-    
     /**
      * @Description: 设置session的值
      * @author yuanfy
@@ -42,10 +41,17 @@ public class SessionUtil {
      * @version 1.0
      */
     public static UserEntity getUser(HttpServletRequest request) {
-        UserEntity user = (UserEntity)request.getSession(true).getAttribute(SESSION_USER);
-        if (user == null) {
-            user = new UserEntity();
-        }
+        UserEntity user = (UserEntity)request.getSession(true).getAttribute(Constants.SESSION_USER_KEY);
         return user;
+    }
+    
+    /**
+     * @description 移除用户信息
+     * @author YuanFY
+     * @date 2017年11月12日 下午3:26:45
+     * @version 1.0
+     */
+    public static void removeUser(HttpServletRequest request) {
+        request.getSession(true).removeAttribute(Constants.SESSION_USER_KEY);
     }
 }

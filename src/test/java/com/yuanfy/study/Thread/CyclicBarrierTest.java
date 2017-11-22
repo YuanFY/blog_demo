@@ -1,4 +1,4 @@
-package com.yuanfy.study;
+package com.yuanfy.study.Thread;
 
 import java.io.IOException;
 import java.util.Random;

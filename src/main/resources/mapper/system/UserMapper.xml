@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanfy.monitorsite.system.dao.UserMapper">
+	
+	<resultMap type="com.yuanfy.monitorsite.system.entity.UserEntity" id="userMap">
+		<id column="id" property="id"/>
+		<result column="register_time" property="registerTime"/>
+		<result column="last_login_time" property="lastLoginTime"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_sys_user(
+			name, 
+			password,
+			email,
+			phone,
+			register_time,
+			last_login_time
+		) values (
+			#{name}, 
+			#{password},
+			#{email},
+			#{phone},
+			now(),
+			now()
+		)	
+	</insert>
+	
+	<update id="update">
+		update tb_sys_user set 
+			password = #{password},
+			email = #{email},
+			phone = #{phone}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		delete from tb_sys_user where id = #{id}
+	</delete> 
+	
+	<select id="getById">
+		select * from tb_sys_user
+	</select>
+	
+	<select id="isValidateNameUnique" resultType="java.lang.Boolean">
+		select count(id)>0 from tb_sys_user where name = #{name}
+	</select>
+	
+	<select id="getLoginUser" resultMap="userMap">
+		select * from tb_sys_user where (email = #{name} or phone = #{name}) and password = #{password}
+	</select>
+</mapper>

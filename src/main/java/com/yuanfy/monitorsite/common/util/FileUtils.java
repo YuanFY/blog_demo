@@ -32,7 +32,7 @@ public class FileUtils {
     }
     
     /**
-     * @Description: TODO
+     * @Description: 根据文件对象获取文件内容
      * @param file
      * @author yuanfy
      * @date 2017年9月15日 下午5:01:57 

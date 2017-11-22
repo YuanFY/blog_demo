@@ -29,7 +29,7 @@
 	
 	<insert id="insert" parameterType="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">
 		insert into tb_tweets (id, tweets_content, tweets_images,tweets_time, like_num, comment_num, user_id)
-		values (#{id}, #{tweetsContent}, #{tweetsImages}, #{tweetsTime}, #{likeNum}, #{commentNum}, #{userId})
+		values (uuid(), #{tweetsContent}, #{tweetsImages}, now(), #{likeNum}, #{commentNum}, #{userId})
 	</insert>
 	
 	<update id="update" parameterType="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">

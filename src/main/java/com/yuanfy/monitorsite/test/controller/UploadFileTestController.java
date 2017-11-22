@@ -43,9 +43,9 @@ public class UploadFileTestController {
         //1、获取文件信息
         FileUtils.getFileInfo(file, fileContent);
         
-        //2、获取文件内容
+        //2、上传文件并获取文件内容
         try {
-            file.transferTo(new File("D:\\cpu.log"));
+            file.transferTo(new File("F:\\text.log"));
             fileContent.append(FileUtils.getFileContentByLine(file.getInputStream()));
         }
         catch (IOException e) {
@@ -63,34 +63,33 @@ public class UploadFileTestController {
     public String testUpload2(HttpServletRequest request){
         Long times = System.currentTimeMillis();
         StringBuilder fileContent = new StringBuilder();
-        //1.用于判断是普通表单，还是带文件上传的表单。
+        //1.根据servletContext获取多文件上传解析组件
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         if (!multipartResolver.isMultipart(request)) {
-            return "没有选择上传文件，请重新选择！";
+            return "不是上传文件表单，请检查表单属性";
         }
-        //2.获取文件相关对象
+        //2.将请求对象转换为多文件请求对象。
         MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-        //文件存放的map对象
+        //3、根据多文件请求对象获取文件存放Map
         Map<String, MultipartFile> fileMap = multipartHttpServletRequest.getFileMap();
         Iterator<Entry<String, MultipartFile>> iterator = fileMap.entrySet().iterator();
+        //4、迭代文件Map,获取具体的MultipartFile
         while (iterator.hasNext()) {
             Entry<String, MultipartFile> entry = iterator.next();
             MultipartFile multipartFile = entry.getValue();
-            
+            //获取文件头信息
             FileUtils.getFileInfo(multipartFile, fileContent);
-            
             try {
-                multipartFile.transferTo(new File("D:\\cpu.log"));
+            	//上传文件
+                multipartFile.transferTo(new File("F:\\text.log"));
+                //获取文件内容
                 fileContent.append(FileUtils.getFileContentByLine(multipartFile.getInputStream()));
             }catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
         }
-        
-        
-        //3、返回文件信息和内容
+        //5、返回文件信息和内容
         String content = fileContent.toString();
         content = content.replace("times", (System.currentTimeMillis()-times) + "ms");
         return content;

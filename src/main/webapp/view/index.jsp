@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -41,7 +42,7 @@
                 </div>
                 <!-- 可折叠响应式导航栏 -->
                 <div class="collapse navbar-collapse" id="main-navbar-collapse">
-                    <ul class="nav navbar-nav" id="header-nav">
+                    <ul class="nav navbar-nav" id="main-header-nav">
                         <li class="active"><a href="#index" data-toggle="tab">主页</span></a></li>
                         <li><a href="#blog" data-toggle="tab" >博客</a></li>
                         <li><a href="#tweets" data-toggle="tab">动弹</a></li>
@@ -49,9 +50,23 @@
                         <li><a href="#chat" data-toggle="tab">公共聊天室</a></li>
                         <li><a href="#test" data-toggle="tab">功能测试</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" id="header-right"> 
-                        <li><a href="${pageContext.request.contextPath }/register.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
-                        <li><a href="${pageContext.request.contextPath }/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
+                    <ul class="nav navbar-nav navbar-right" id="header-right" <c:if test="${not empty user }">style="display:none"</c:if>> 
+                        <li><a href="${pageContext.request.contextPath }/system/register/index.html"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
+                        <li><a href="${pageContext.request.contextPath }/system/login/index.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" <c:if test="${empty user }">style="display:none"</c:if>>
+                    	<li><a>${user.name }, 您好</a></li>
+                    	<li>
+                    		<a style="padding-left:0px" class="dropdown-toggle" data-toggle="dropdown" id="mySpaceDropMenu">我的空间
+                    			<span class="caret"></span>
+                    		</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="mySpaceDropMenu" id="mySpaceDropMenuUL">
+								<li role="presentation">
+						            <a role="menuitem" tabindex="-1" href="#">个人资料修改</a>
+						            <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath }/system/login/logout.html">退出</a>
+						        </li>
+							</ul>
+                    	</li>
                     </ul>
                 </div><!-- /.nav-collapse -->
             </div><!-- /.container -->
@@ -59,7 +74,7 @@
     </div>
     
     <!-- 主题内容 -->
-    <div class="main-content tab-content" >
+    <div class="main-content tab-content" id="mainDiv">
         <div id="index" class="tab-pane active"></div>
         <div id="blog" class="tab-pane"></div>
         <div id="readBook" class="tab-pane"></div>
@@ -87,25 +102,26 @@
     	$("#footer").hide();
     	//大标题点击事件
     	$("#homeTitle").click(function (){
-    		$.each($("#header-nav li"), function(index, element){
+    		$.each($("#main-header-nav li"), function(index, element){
     			if (index == 0) {
     				$(this).addClass("active");
     			} else {
     			    $(this).removeClass("active");
     			}
             });
-    	});
-        //导航条点击换active 
-        $("#header-nav .dropdown").click(function(){
-            $.each($("#header-nav li"), function(){
-                $(this).removeClass("active");
+    		$.each($("#mainDiv .tab-pane"), function(index, element){
+    			if (index == 0) {
+    				$(this).addClass("active");
+    			} else {
+    			    $(this).removeClass("active");
+    			}
             });
-        });
-        
+    		loadUrl("#index");
+    	});
         //加载当前页面
         loadCurrentIndex();
-        
-        $('#header-nav a').click(function (e) {
+        //主菜单点击
+        $('#main-header-nav a').click(function (e) {
 			$.each($(".main-content .tab-pane"), function(){
 			    $(this).html("");
 			});
@@ -115,6 +131,12 @@
             
             var id = window.location.hash;
             loadUrl(id);
+        });
+        $("#mySpaceDropMenu").click(function (){
+        	return false;
+        }).hover(function(){
+        	$(this).attr("aria-expanded", true);
+        	$(this).parent().addClass("open");
         });
     });
     
@@ -146,21 +168,21 @@
             $(this).empty();
         });
         if (id == "#index") {
-            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
         } else if (id == "#blog"){
-            showContentById('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+            showContentById_common('${pageContext.request.contextPath}/blog/index.html','', 'blog');
         } else if (id == "#readBook"){
-            showContentById('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+            showContentById_common('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
         } else if (id == "#tweets"){
-            showContentById('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+            showContentById_common('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
         } else if (id == "#question"){
-            showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
+            showContentById_common('${pageContext.request.contextPath}/question/index.html','', 'question');
         } else if (id == "#chat"){
-            showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+            showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         } else if (id == "#test"){
-            showContentById('${pageContext.request.contextPath}/test/index.html','', 'test');
+            showContentById_common('${pageContext.request.contextPath}/test/index.html','', 'test');
         } else {
-            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
         }
     }
     /**
@@ -174,17 +196,17 @@
         });
         var id = $(e.target).attr('href');
         if (id == "#index") {
-            showContentById('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
         } else if (id == "#blog"){
-        	showContentById('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+        	showContentById_common('${pageContext.request.contextPath}/blog/index.html','', 'blog');
         } else if (id == "#readBook"){
-            showContentById('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+            showContentById_common('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
         } else if (id == "#tweets"){
-            showContentById('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+            showContentById_common('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
         } else if (id == "#question"){
-            showContentById('${pageContext.request.contextPath}/question/index.html','', 'question');
+            showContentById_common('${pageContext.request.contextPath}/question/index.html','', 'question');
         } else if (id == "#chat"){
-            showContentById('${pageContext.request.contextPath}/chat/index.html','', 'chat');
+            showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         }
     }); */
 

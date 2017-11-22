@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yuanfy.monitorsite.framework.SessionUtil;
+
 /**
  * @description 主控制器类
  * @author YuanFY 
@@ -37,6 +39,7 @@ public class MainController{
 	
 	@RequestMapping(value = "/index")
 	public String index(HttpServletRequest request,Model model){
+		model.addAttribute("user", SessionUtil.getUser(request));
 		return "/index";
 	}
 	

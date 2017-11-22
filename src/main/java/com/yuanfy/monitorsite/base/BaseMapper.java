@@ -9,11 +9,11 @@ package com.yuanfy.monitorsite.base;
 public interface BaseMapper<T> {
     
     
-    public void insert(T obj); 
+    public void insert(T entity); 
     
     public void deleteById(Object id);
     
-    public void update(T obj);
+    public void update(T entity);
     
     public void getById(Object id);
     

@@ -1,4 +1,4 @@
-package com.yuanfy.study;
+package com.yuanfy.study.Thread;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

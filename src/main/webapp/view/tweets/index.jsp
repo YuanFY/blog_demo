@@ -104,7 +104,7 @@
         $('#tweetsContent').on('change keydown keyup input', function(event) {
 	        var textarea = $(this);
 	        var value = $(this).val();
-	        var length = getLenth(value);
+	        var length = getLenth_common(value);
 	        if (length > 200) {
 	            textarea.val(oldLength);
 	        } else {
@@ -112,63 +112,39 @@
 	            $('#left').html('还可以输入'+ (200 -length) + '个字符');
 	        }
 	    });
-        function getLenth(str) {
-            //str = str.replace(/\[:([\s\S]+?)\]/g, 'F'); //把所有表情都变成F，一个字符
-            str = str.replace(/[\u4e00-\u9fa5]/g, 'CN'); //把所有汉字都变成CN，两个字符 
-            return str.length;
-        }
-        //加载qq组件
-        $.qqface({
-            before : function(textarea, code){
-                var value = textarea.val();
-                var length = getLenth(value);
-                return length < 199;
-            }, //要在插入之前执行
-            after: function(textarea, code){
-                var value = textarea.val();
-                var length = getLenth(value);
-                $('#left').html('还可以输入'+ (200 -length) + '个字符');
-                $('#tweetsContent').change();
-            }, //在插入之后执行
-            imgPath : '${pageContext.request.contextPath}/statics/images/gif/',
-            textarea : $('#tweetsContent'),
-            handle : $('#qqFace')
-        });
         
+        //加载qq组件
+        initQQFace_common($('#qqFace'), $('#tweetsContent'), $('#left'));
+        
+        //加载上传组件
         $(document).mousedown(function(e){ 
         	e = e || window.event;  
             var dom =  e.srcElement|| e.target;  
         	var nodeId = dom.id;
         	var htmlContent = $("#insertImg").html()+"";
         	
-        	if (nodeId != 'insertImg_i' && htmlContent.indexOf(nodeId) < 0 && htmlContent.indexOf($(e).html())) {
+        	if ((nodeId != 'insertImg_i' && htmlContent.indexOf($(dom).html()) < 0) || $(dom).html() == "") {
         		$("#insertImg").css("display", "none");
         		$("#insertImg").html("");
         	}
         });
         
         $(".insertImg").click(function (){
-        	$("#insertImg").css("display", "");
+        	$("#insertImg").show();
         	var htmlContent = $("#insertImg").html()+"";
         	if (htmlContent == '') {
-        		initUpload("insertImg");
+        		initUpload("insertImg", "${pageContext.request.contextPath}/tweets/uploadImg.html","image/gif,image/jpeg,image/png");
         	}
         });
         
         //发送动弹
         $("#sendTweets").click(function (){
-        	//alert(1);
-        	$("#left").html($("#tweetsContent").val());
-        	/* $.ajax({
-                url:'${pageContext.request.contextPath}/tweets/save.html',
-                data:{tweetsContent:$("#tweetsContent").val()},
-                dataType: 'json',
-                success: function(result){
-                    
-                }
-            }); */
+        	$("#left").html(replaceQQContent_common($("#tweetsContent").val()));
+        	ajaxRequest_common("${pageContext.request.contextPath}/tweets/save.html", 
+        			{tweetsContent : $("#tweetsContent").val()},
+        			null, null, null, "发布成功");
         });
-        showPageInfo("divPaging_new", 20, 1);
+        showPageInfo_common("divPaging_new", 20, 1);
     });
     </script>
 </div>

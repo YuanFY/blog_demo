@@ -1,13 +1,14 @@
  /* www.jq22.com */
 
-function initUpload(id){
+function initUpload(id, url, accept){
 	// 初始化插件
 	$("#" + id).zyUpload({
 		width            :   "650px",                 // 宽度
 		height           :   "400px",                 // 宽度
 		itemWidth        :   "120px",                 // 文件项的宽度
 		itemHeight       :   "100px",                 // 文件项的高度
-		url              :   "/upload/UploadAction",  // 上传文件的路径
+		accept			 :	 accept,
+		url              :   url,  // 上传文件的路径
 		multiple         :   true,                    // 是否可以多个文件上传
 		dragDrop         :   true,                    // 是否可以拖动上传文件
 		del              :   true,                    // 是否可以删除文件

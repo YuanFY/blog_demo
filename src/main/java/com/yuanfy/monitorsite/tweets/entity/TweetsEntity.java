@@ -16,11 +16,11 @@ public class TweetsEntity {
 
     private Date tweetsTime;
 
-    private Long likeNum;
+    private int likeNum;
 
-    private Long commentNum;
+    private int commentNum;
 
-    private Integer userId;
+    private Long userId;
 
     public String getId() {
         return id;
@@ -54,27 +54,27 @@ public class TweetsEntity {
         this.tweetsTime = tweetsTime;
     }
 
-    public Long getLikeNum() {
+    public int getLikeNum() {
         return likeNum;
     }
 
-    public void setLikeNum(Long likeNum) {
+    public void setLikeNum(int likeNum) {
         this.likeNum = likeNum;
     }
 
-    public Long getCommentNum() {
+    public int getCommentNum() {
         return commentNum;
     }
 
-    public void setCommentNum(Long commentNum) {
+    public void setCommentNum(int commentNum) {
         this.commentNum = commentNum;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

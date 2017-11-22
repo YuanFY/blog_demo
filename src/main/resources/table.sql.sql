@@ -1,11 +1,13 @@
-drop database if EXISTS monitorsite;
+﻿drop database if EXISTS monitorsite;
 CREATE DATABASE `monitorsite` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 use monitorsite;
 
+drop table if EXISTS tb_sys_user;
 create table tb_sys_user(
 	id int(11) not null AUTO_INCREMENT,
-	`name` varchar(50) not null comment '用户名',
+	`name` varchar(50) UNIQUE not null comment '用户名',
+	`password` varchar(50) not null comment '密码',
 	`email` varchar(50) DEFAULT null comment '邮箱',
 	`phone` varchar(50) DEFAULT null comment '手机号',
 	register_time TIMESTAMP not null comment '注册时间',
@@ -13,6 +15,7 @@ create table tb_sys_user(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+drop table if EXISTS tb_tweets;
 create table tb_tweets(
 	id VARCHAR(64) not null,
 	tweets_content varchar(500) not null comment '动弹内容',

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import org.junit.Test;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 public class IOTest {
 
@@ -28,5 +29,6 @@ public class IOTest {
 		
 		System.out.println(sb.toString());
 		System.out.println(System.getProperty("file.encoding"));
+		
 	}
 }
