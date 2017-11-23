@@ -6,4 +6,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/stringUtil.js?"+Math.random()></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/validate.js?"+Math.random()></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/gVerify.js?"+Math.random()></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-core.js?"+Math.random()></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jforest-core.js?"+Math.random()></script>
  

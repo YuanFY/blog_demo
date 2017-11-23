@@ -15,13 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/jquery.pagination.css?"+Math.random() />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/reset.css?"+Math.random() />
 
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.form.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.pagination.js?"+Math.random()></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/bootstrap/3.3.7/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/common.js?"+Math.random()></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/common/stringUtil.js?"+Math.random()></script>
-    
+<jsp:include page="common/js.jsp"></jsp:include>    
 </head>
 <body id="body">
     <div class="header">
