@@ -11,6 +11,7 @@
 
 <title>Demo</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/3.3.7/bootstrap.min.css?"+Math.random()/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/bootstrap-modal.css?"+Math.random()/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/common.css?"+Math.random() />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/jquery.pagination.css?"+Math.random() />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/jquery/reset.css?"+Math.random() />
@@ -203,6 +204,6 @@
             showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         }
     }); */
-
+    jc.info("1234",100000)
 </script>
 </html>
