@@ -3,12 +3,22 @@
  */
 ;(function(global, $){
 	global.jCustom = {
+		//------------------------------提示组件相关方法------------------------------------
 		/**
-		 * 信息提示函数
+		 * 正常信息提示函数
 		 * title, msg, time, hideCallback;
 		 */
 		info : function (){
 			var args = resolveArgs(arguments);
+			new Hint(args).msg(args.title,args.msg).show();
+		},
+		/**
+		 * 错误信息提示函数
+		 * title, msg, time, hideCallback;
+		 */
+		error : function (){
+			var args = resolveArgs(arguments);
+			args.className = "alert-danger";
 			new Hint(args).msg(args.title,args.msg).show();
 		},
 		/**
@@ -18,10 +28,57 @@
 			var el = "body";
 			var $el = $('<div class="modal-backdrop fade in" style="z-index:1050;"></div>').appendTo(el);
 			return $el;
-		}
+		},
+		//------------------------------ajax相关方法------------------------------------
+		get : function(options){
+			options.type = 'GET';
+			return new Ajax(options).load();
+		},
+		post : function(options){
+			return new Ajax(options).load();
+		},
+		sync: function(options){
+			options.async = false;
+			return new Ajax(options).syncLoad();
+		},
 	};
 	/*********************************************封装ajax组件**************************************************************/
-	
+	var Ajax = function (options){
+		this.options = $.extend({
+			url : '',
+		    data : null,
+		    type : 'post',
+		    async : true,
+		    dataType: "json",
+		    callback:function(){}
+		}, options);
+	}
+	Ajax.prototype = {
+		load : function(){debugger
+			var successMsg = this.options.successMsg, errorMsg = this.options.successMsg,callback = this.options.callback;
+			if (this.options.success == null) {
+				this.options.success = function(result){
+					var msg = null;
+			        if (result.error == 1) {
+			        	msg = (successMsg != null ? successMsg : result.msg);
+			        	jc.info(msg);
+			        }else if (result.error == 0) {
+			        	msg = (errorMsg != null ? errorMsg : result.msg);
+			        	jc.error(msg);
+			        }
+				}
+			}
+			$.ajax(this.options);
+		},
+		syncLoad : function(){
+			var resultData = null;
+			this.options.success = function(result){
+				resultData = result;
+			}
+			$.ajax(this.options);
+			return resultData;
+		}
+	}
 	/*********************************************消息提示组件**************************************************************/
 	/**
 	 * 消息提示组件
