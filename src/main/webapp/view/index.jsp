@@ -204,6 +204,5 @@
             showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
         }
     }); */
-    jc.info("1234",100000)
 </script>
 </html>

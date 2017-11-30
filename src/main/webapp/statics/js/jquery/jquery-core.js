@@ -3,13 +3,30 @@
  */
 ;(function(global, $){
 	global.jCustom = {
-		info : function (){debugger
+		/**
+		 * 信息提示函数
+		 * title, msg, time, hideCallback;
+		 */
+		info : function (){
 			var args = resolveArgs(arguments);
-			new Hint().msg(args.title,args.msg).show();
+			new Hint(args).msg(args.title,args.msg).show();
+		},
+		/**
+		 * 遮罩层函数
+		 */
+		mask : function(){
+			var el = "body";
+			var $el = $('<div class="modal-backdrop fade in" style="z-index:1050;"></div>').appendTo(el);
+			return $el;
 		}
 	};
+	/*********************************************封装ajax组件**************************************************************/
+	
+	/*********************************************消息提示组件**************************************************************/
 	/**
-	 * 消息提示组件<br>
+	 * 消息提示组件
+	 * 功能：继承boostrap modal的特性(class="modal fade in")<br>
+	 * 特点：指定时间消失、点击也会消失<br>
 	 * time: 显示时间,默认为3s<br>
 	 * className: class对象,默认为alert-info<br>
 	 * location: 显示位置，默认为center 正中央<br>
@@ -33,24 +50,48 @@
 	//添加方法
 	Hint.prototype = {
 		/**
-		 * 显示消息
+		 * 添加消息
 		 * @param title 标题
 		 * @param msg 具体消息
 		 */
 		msg : function (title, msg){
 			var opts = this.options;
+			var my = this;
 			if (title || msg) {
 				if (!su.isNotNull(title)) {
 					title = "系统提示";
 				}
-				this.$el.append('<div class="alert '+opts.className+'" style="max-width:30%;margin:3px auto;padding:10px;"><strong>'+title+'</strong>：'+msg+'</div>');
+				this.$el.append('<div class="alert '+opts.className+'" style="max-width:30%;margin:3px auto;padding:10px;"><strong>'+title+'</strong>：'+msg+'</div>')
+				.click(function (){my.hide.apply(my)});
 			}
 			return this;
 		},
+		//显示信息
 		show : function (){
+			var my = this;
+			//添加遮罩层
+			this.$mask = jc.mask();
+			//将信息添加至body
 			this.$el.appendTo('body');
+			//固定时间隐藏
+			if (this.options.time){
+				this.timer = setInterval(function(){
+					my.hide.apply(my);
+				}, this.options.time);
+			}
+		},
+		/**
+		 * 隐藏hint信息
+		 */
+		hide : function (){
+			if (this.timer) {
+				clearInterval(this.timer);
+				delete this.timer;
+			}
+			this.$mask.remove();
+			this.$el.remove();
+			this.options.hideCallback.apply();
 		}
-		
 	}
 	
 	/**
@@ -90,6 +131,6 @@
 		}
 		return {title:title,msg:msg,time:time,hideCallback:hideCallback};
 	}
-	
+	//全局定义
 	global.jc = global.jCustom;
 })(typeof window !== "undefined" ? window : this,jQuery);
