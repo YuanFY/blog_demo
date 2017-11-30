@@ -139,10 +139,27 @@
         
         //发送动弹
         $("#sendTweets").click(function (){
-        	$("#left").html(replaceQQContent_common($("#tweetsContent").val()));
-        	ajaxRequest_common("${pageContext.request.contextPath}/tweets/save.html", 
-        			{tweetsContent : $("#tweetsContent").val()},
-        			null, null, null, "发布成功");
+        	if (su.isNull("${user}")) {
+        		jf.error("用户尚未登录，请登录后再发动弹");
+        		return;
+        	}
+        	if (su.isNull($.trim($("#tweetsContent").val()))) {
+        		jf.error("内容不能为空");
+        		return;
+        	}
+        	jc.post({
+        		url : "${pageContext.request.contextPath}/tweets/save.html",
+        		data : {tweetsContent : $("#tweetsContent").val()},
+        		success : function(result){
+					var msg = null;
+			        if (result.error == 1) {
+			        	$("#tweetsContent").val('');
+			        	jc.info("发布成功");
+			        }else if (result.error == 0) {
+			        	jc.error(result.msg);
+			        }
+				}
+        	});
         });
         showPageInfo_common("divPaging_new", 20, 1);
     });
