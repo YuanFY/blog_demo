@@ -178,4 +178,6 @@ value{padding-left: 5px}
 textarea{
 	resize: none;
 }
-
+.modal-footer{
+	padding: 5px;
+}
