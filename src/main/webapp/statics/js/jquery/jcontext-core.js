@@ -13,6 +13,15 @@
 			new Hint(args).msg(args.title,args.msg).show();
 		},
 		/**
+		 * 警告信息提示函数
+		 * title, msg, time, hideCallback;
+		 */
+		error : function (){
+			var args = resolveArgs(arguments);
+			args.className = "alert-warning";
+			new Hint(args).msg(args.title,args.msg).show();
+		},
+		/**
 		 * 错误信息提示函数
 		 * title, msg, time, hideCallback;
 		 */
@@ -28,6 +37,47 @@
 			var el = "body";
 			var $el = $('<div class="modal-backdrop fade in" style="z-index:1050;"></div>').appendTo(el);
 			return $el;
+		},
+		/**
+		 * 确认框（形式上就是modal）
+		 * title标题，msg 主体内容，click 点击确认处理函数
+		 */
+		confirm : function (title, msg, click){
+			//初始化处理
+			click=$.isFunction(click)?click:function(flag){};
+			jc.alertModal = $('<div class="modal fade" id="jcontextModal" tabindex="-1" role="dialog">'
+					+ '<div class="modal-dialog" style="width:400px;">'
+					+ '<div class="modal-content"><div class="modal-header">'
+					+ '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+					+ '<h4 class="modal-title pull-left">' + title + '</h4></div>'
+					+ '<div class="modal-body" style="padding:20px;text-align:left">' + msg + '</div>'
+					+ '<div class="modal-footer"><button type="button" class="btn btn-info btn-sm">确定</button>'
+					+ '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>'
+					+ '</div></div></div></div>');
+			//为确定按钮添加点击事件，然后回调click函数
+			jc.alertModal.find('.btn-info').click(function(){
+				jc.alertModal.modal('hide');
+				click.call(this, true);//回调
+			});
+			//最后一步显示摸态框
+			jc.alertModal.modal("show");
+		},
+		/**
+		 * 单纯alert提示框（形式上也是modal）
+		 * title标题，msg 主体内容，click 点击确认处理函数
+		 */
+		alert : function (title, msg){
+			//初始化处理
+			jc.alertModal = $('<div class="modal fade" id="jcontextModal" tabindex="-1" role="dialog">'
+					+ '<div class="modal-dialog" style="width:400px;">'
+					+ '<div class="modal-content"><div class="modal-header">'
+					+ '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+					+ '<h4 class="modal-title pull-left">' + title + '</h4></div>'
+					+ '<div class="modal-body" style="padding:20px;text-align:left">' + msg + '</div>'
+					+ '<div class="modal-footer"><button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>'
+					+ '</div></div></div></div>');
+			//最后一步显示摸态框
+			jc.alertModal.modal("show");
 		},
 		//------------------------------ajax相关方法------------------------------------
 		get : function(options){
@@ -54,7 +104,7 @@
 		}, options);
 	}
 	Ajax.prototype = {
-		load : function(){debugger
+		load : function(){
 			var successMsg = this.options.successMsg, errorMsg = this.options.successMsg,callback = this.options.callback;
 			if (this.options.success == null) {
 				this.options.success = function(result){
