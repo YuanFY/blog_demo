@@ -2,7 +2,7 @@
  * 自定义弹出框组件
  */
 ;(function(global, $){
-	global.jCustom = {
+	global.jContext = {
 		//------------------------------提示组件相关方法------------------------------------
 		/**
 		 * 正常信息提示函数
@@ -189,5 +189,5 @@
 		return {title:title,msg:msg,time:time,hideCallback:hideCallback};
 	}
 	//全局定义
-	global.jc = global.jCustom;
+	global.jc = global.jContext;
 })(typeof window !== "undefined" ? window : this,jQuery);
