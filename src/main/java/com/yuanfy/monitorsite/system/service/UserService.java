@@ -28,21 +28,26 @@ public class UserService {
 	private UserMapper userMapper;
 	
 	public AjaxResult save(UserEntity entity, HttpServletRequest request){
-		AjaxResult result = new AjaxResult(1);
+		AjaxResult result = new AjaxResult(0);
 		if (entity == null) {
-			result.setError(0);
 			log.error("用户数据为空，请重新检查!");
 			return result;
 		}
 		if (entity.getId() != null) {
+		    result.setError(1);
 			userMapper.update(entity);
 			return result;
-		} 
-		if (userMapper.isValidateNameUnique(entity.getName())) {
-			result.setError(0);
+		}
+		int count = userMapper.isValidateUserUnique(entity);
+		if (count == 1) {
 			result.setMsg("该昵称已被注册，请换一个！");
-		}else {
+		}else if (count == 2) {
+            result.setMsg("该邮箱已被注册，请换一个！");
+        }else if (count == 3) {
+            result.setMsg("该手机号已被注册，请换一个！");
+        }else {
 			userMapper.insert(entity);
+			result.setError(1);
 			SessionUtil.setAttr(request, Constants.SESSION_USER_KEY, entity);
 		}
 		return result;

@@ -15,12 +15,12 @@ public interface UserMapper extends BaseMapper<UserEntity>{
 	/**
 	 * @description 验证用户名是否唯一
 	 * @param name
-	 * @return boolean
+	 * @return 1 表示昵称存在重复，2 表示邮箱存在重复，3 表示手机号存在
 	 * @author YuanFY
 	 * @date 2017年11月11日 下午9:41:52
 	 * @version 1.0
 	 */
-	public boolean isValidateNameUnique(@Param(value="name")String name);
+	public int isValidateUserUnique(UserEntity entity);
 	
 	/**
 	 * @description 根据账号和密码获取用户

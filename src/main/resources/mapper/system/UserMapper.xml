@@ -44,8 +44,14 @@
 		select * from tb_sys_user
 	</select>
 	
-	<select id="isValidateNameUnique" resultType="java.lang.Boolean">
-		select count(id)>0 from tb_sys_user where name = #{name}
+	<select id="isValidateUserUnique" resultType="java.lang.Integer">
+        select (
+        case 
+            when (select count(id) from tb_sys_user where name = #{name}) > 0 then 1
+            when (select count(id) from tb_sys_user where name = #{email}) > 0 then 2
+            when (select count(id) from tb_sys_user where name = #{phone}) > 0 then 3
+            else 0
+        END) as number
 	</select>
 	
 	<select id="getLoginUser" resultMap="userMap">

@@ -62,7 +62,7 @@
 						<div class="from-group margin-top20">
 							<label>没有账号?</label>
 							<br>
-							<a href="${pageContext.request.contextPath }/register.html"> 立即注册 → </a>
+							<a href="${pageContext.request.contextPath }/system/register/index.html"> 立即注册 → </a>
 						</div>
 						<div class="from-group" style="margin-top: 20px;">
 							<label>使用以下账号直接登录</label>

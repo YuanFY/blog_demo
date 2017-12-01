@@ -71,7 +71,7 @@
 						<div class="from-group margin-top20">
 							<label>已经注册过?</label>
 							<br>
-							<a href="${pageContext.request.contextPath }/login.html"> 立即登录 → </a>
+							<a href="${pageContext.request.contextPath }/system/login/index.html"> 立即登录 → </a>
 						</div>
 						<div class="from-group" style="margin-top: 20px;">
 							<label>使用以下账号直接登录</label>
@@ -121,7 +121,7 @@
 					            if(result.error == 1){
 					            	window.location.href="${pageContext.request.contextPath}/index.html";
 					            }else{
-					            	alert(0);
+					            	jc.error(result.msg);
 					            }
 					        },
 					        error:function(data){
