@@ -50,7 +50,7 @@
                         <li><a href="${pageContext.request.contextPath }/system/login/index.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> 
                     </ul>
                     <ul class="nav navbar-nav navbar-right" <c:if test="${empty user }">style="display:none"</c:if>>
-                    	<li><a>${user.name }, 您好</a></li>
+                    	<li><a>${user.name }, 您好</a><input type="hidden" value="${user.id }" id="userId"/></li>
                     	<li>
                     		<a style="padding-left:0px" class="dropdown-toggle" data-toggle="dropdown" id="mySpaceDropMenu">我的空间
                     			<span class="caret"></span>

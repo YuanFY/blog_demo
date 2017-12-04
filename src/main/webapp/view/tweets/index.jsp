@@ -2,20 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- 引入qq表情组件 -->
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.min.js"></script> --%>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.qqFace.js"></script> --%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery/jquery.qqface.min.js"></script>
-<!-- 引入图片上传组件 -->
-<!-- 引用控制层插件样式 -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/statics/css/upload/zyUpload.css" type="text/css">
-<!-- <script type="text/javascript" src="http://www.lanrenzhijia.com/ajaxjs/jquery.min.js"></script> -->
-<!-- 引用核心层插件 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/core/zyFile.js"></script>
-<!-- 引用控制层插件 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/zyUpload.js"></script>
-<!-- 引用初始化JS -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/upload/core/initUpload.js?"+Math.random()></script>
 <div class="container">
     <div class="row" id="blog-container">
         <div class="col-sm-8">
@@ -139,12 +125,12 @@
         
         //发送动弹
         $("#sendTweets").click(function (){
-        	if (su.isNull("${user}")) {
-        		jf.error("用户尚未登录，请登录后再发动弹");
+        	if (su.isNull($("#userId").val())) {
+        		jc.error("用户尚未登录，请<a href='${pageContext.request.contextPath }/system/login/index.html'>登录</a>后再发动弹");
         		return;
         	}
         	if (su.isNull($.trim($("#tweetsContent").val()))) {
-        		jf.error("内容不能为空");
+        		jc.error("内容不能为空");
         		return;
         	}
         	jc.post({
