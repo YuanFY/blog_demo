@@ -100,7 +100,10 @@
 		    type : 'post',
 		    async : true,
 		    dataType: "json",
-		    callback:function(){}
+		    callback:function(){},
+		    error : function(){
+		    	jc.error("系统异常，请联系管理员");
+		    }
 		}, options);
 	}
 	Ajax.prototype = {

@@ -56,6 +56,7 @@ public class TweetsController{
 			}
 			//2 发布动弹
 			entity.setUserId(user.getId());
+			entity.setTweetsTime(System.currentTimeMillis());
 			tweetsService.insert(entity);
 			result.setError(1);
 		} catch (Exception e) {
@@ -65,6 +66,29 @@ public class TweetsController{
 		return result;
 	}
 	
+	@RequestMapping(value = "/tweets/list")
+	@ResponseBody
+	public AjaxResult list(TweetsEntity entity, HttpServletRequest request) {
+		AjaxResult result = new AjaxResult(0);
+		try{
+			//1、 先获取用户信息
+			UserEntity user = SessionUtil.getUser(request);
+			if (user == null) {
+				result.setError(-1);
+				result.setMsg("请先登录");
+				return result;
+			}
+			//2 发布动弹
+			entity.setUserId(user.getId());
+			entity.setTweetsTime(System.currentTimeMillis());
+			tweetsService.insert(entity);
+			result.setError(1);
+		} catch (Exception e) {
+			log.error("发表动弹内容失败：", e);
+			result.setMsg("发布失败，请联系管理员！");
+		}
+		return result;
+	}
 	
 	@RequestMapping(value="/tweets/uploadImg")
     @ResponseBody

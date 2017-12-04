@@ -27,12 +27,12 @@
 		delete from tb_tweets where id = #{id}
 	</delete>
 	
-	<insert id="insert" parameterType="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">
+	<insert id="insert">
 		insert into tb_tweets (id, tweets_content, tweets_images,tweets_time, like_num, comment_num, user_id)
-		values (uuid(), #{tweetsContent}, #{tweetsImages}, now(), #{likeNum}, #{commentNum}, #{userId})
+		values (uuid(), #{tweetsContent}, #{tweetsImages}, #{tweetsTime}, #{likeNum}, #{commentNum}, #{userId})
 	</insert>
 	
-	<update id="update" parameterType="com.yuanfy.monitorsite.tweets.entity.TweetsEntity">
+	<update id="update">
 		update tb_tweets
 		set tweets_content = #{tweetsContent},
 		tweets_images = #{tweetsImages},
@@ -42,4 +42,8 @@
 		user_id = #{userId}
 		where id = #{id}
 	</update>
+	
+	<select id="findAll" resultMap="tweetsMap">
+		select * from tb_tweets order by tweets_time desc
+	</select>
 </mapper>

@@ -1,6 +1,5 @@
 package com.yuanfy.monitorsite.tweets.entity;
 
-import java.util.Date;
 /**
  * @Description: TODO
  * @author yuanfy
@@ -14,13 +13,16 @@ public class TweetsEntity {
 
     private String tweetsImages;
 
-    private Date tweetsTime;
+    private Long tweetsTime;
 
     private int likeNum;
 
     private int commentNum;
 
     private Long userId;
+    
+    //用于页面展示
+    private String beforeTime;
 
     public String getId() {
         return id;
@@ -46,11 +48,11 @@ public class TweetsEntity {
         this.tweetsImages = tweetsImages == null ? null : tweetsImages.trim();
     }
 
-    public Date getTweetsTime() {
+    public Long getTweetsTime() {
         return tweetsTime;
     }
 
-    public void setTweetsTime(Date tweetsTime) {
+    public void setTweetsTime(Long tweetsTime) {
         this.tweetsTime = tweetsTime;
     }
 
@@ -77,4 +79,27 @@ public class TweetsEntity {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+	public String getBeforeTime() {
+		return beforeTime;
+	}
+
+	public void setBeforeTime(Long tweetsTime) {
+		Long currentTimes = System.currentTimeMillis();
+		if (currentTimes - tweetsTime < 1000 * 60) {
+			this.beforeTime = "刚刚";//小于一分钟
+		} else if (currentTimes - tweetsTime < 1000 * 60 * 60) {
+			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60) + "分钟前";//小于一个小时用分钟表示
+		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24) {
+			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60) + "小时前";//小于一个天用小时表示
+		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24 * 7) {
+			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24) + "天前";//小于一个星期用天表示
+		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24 * 30) {
+			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 7) + "周前";//小于一个月用星期表示
+		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24 * 365) {
+			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 30) + "月前";//小于一个年用月表示
+		} else if (currentTimes - tweetsTime >= 1000 * 60 * 60 * 24 * 365) {
+			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 365) + "年前";//大于一个年用年表示
+		}
+	}
 }

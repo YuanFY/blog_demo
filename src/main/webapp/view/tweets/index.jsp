@@ -45,7 +45,6 @@
 					</div>
                 </div>
                 </c:forEach>
-                <div class="panel-footer" id="divPagingMonitor" style="display: none"></div>
                 <div class="panel-footer"><div id="divPaging_new" class="pagination"></div></div>
             </div>
         </div>
@@ -141,6 +140,8 @@
 			        if (result.error == 1) {
 			        	$("#tweetsContent").val('');
 			        	jc.info("发布成功");
+			        }else if (result.error == -1){
+			        	jc.error("用户尚未登录，请<a href='${pageContext.request.contextPath }/system/login/index.html'>登录</a>后再发动弹");
 			        }else if (result.error == 0) {
 			        	jc.error(result.msg);
 			        }
