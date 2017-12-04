@@ -47,9 +47,9 @@
 	<select id="isValidateUserUnique" resultType="java.lang.Integer">
         select (
         case 
+        	when (select count(id) from tb_sys_user where phone = #{phone}) > 0 then 3
+        	when (select count(id) from tb_sys_user where email = #{email}) > 0 then 2
             when (select count(id) from tb_sys_user where name = #{name}) > 0 then 1
-            when (select count(id) from tb_sys_user where name = #{email}) > 0 then 2
-            when (select count(id) from tb_sys_user where name = #{phone}) > 0 then 3
             else 0
         END) as number
 	</select>

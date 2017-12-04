@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/3.3.7/bootstrap.min.css?"+Math.random()/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/common.css?"+Math.random() />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/statics/css/bootstrap/bootstrap-modal.css?"+Math.random()/>
 <jsp:include page="../../common/js.jsp"></jsp:include>
 <style type="text/css">
 	.modal-dialog{
@@ -125,7 +126,7 @@
 					            }
 					        },
 					        error:function(data){
-					        	
+					        	jc.error("系统异常，请联系管理员！");
 					        }
 					    };    
 					    var form = $("#emailRegisterForm");  
