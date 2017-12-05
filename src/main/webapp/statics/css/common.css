@@ -181,3 +181,9 @@ textarea{
 .modal-footer{
 	padding: 5px;
 }
+.glyphicon{
+	cursor: pointer;
+}
+.liked{
+	color: #0593d3
+}
