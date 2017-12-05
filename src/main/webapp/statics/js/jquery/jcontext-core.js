@@ -16,7 +16,7 @@
 		 * 警告信息提示函数
 		 * title, msg, time, hideCallback;
 		 */
-		error : function (){
+		warn : function (){
 			var args = resolveArgs(arguments);
 			args.className = "alert-warning";
 			new Hint(args).msg(args.title,args.msg).show();
