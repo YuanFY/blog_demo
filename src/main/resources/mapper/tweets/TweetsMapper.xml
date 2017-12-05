@@ -44,6 +44,8 @@
 	</update>
 	
 	<select id="findAll" resultMap="tweetsMap">
-		select * from tb_tweets order by tweets_time desc
+		select t.*,u.name userName from tb_tweets t
+		join tb_sys_user u on u.id = t.user_id
+		order by tweets_time desc
 	</select>
 </mapper>

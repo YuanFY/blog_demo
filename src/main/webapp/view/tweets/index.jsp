@@ -20,31 +20,9 @@
                	<div class="row">
                		<h4>大家在动弹什么？</h4>
                	</div>
-                <c:forEach begin="1" end="9">
-                <div class="row">
-	                <div class="panel panel-default">
-						<div class="panel-body">
-							<div class="col-sm-2 header">
-		                        <a  href="#"  title="苗哥">
-		                            <img class="img-circle" src="https://static.oschina.net/uploads/user/68/136226_50.jpg?t=1402318962000">
-		                        </a>
-		                    </div>
-		                    <div class="col-sm-10 content">
-		                        <div class="box vertical">
-                					<a class="ti-uname" href="https://my.oschina.net/hardbone" title="局长" target="_blank">局长&nbsp;&nbsp;</a>
-                					<span class="dark-box" >12分钟前</span>
-                            	</div>
-		                        <section class="blog-brief text-gradient">在html文件中，使用svg标记可以绘制图形。这个例子中主要用到path，linearGradient两个技术</section>
-		                        <footer class="dark-box">
-		                            <span class="glyphicon glyphicon-thumbs-up span-icon" ><value>0</value></span>
-		                            <span class="glyphicon glyphicon-comment span-icon" ><value>0</value></span>
-		                            <span >查看详情</span>
-		                        </footer>
-		                    </div>
-						</div>
-					</div>
+               	<div id="tweetsBody">
+                
                 </div>
-                </c:forEach>
                 <div class="panel-footer"><div id="divPaging_new" class="pagination"></div></div>
             </div>
         </div>
@@ -140,6 +118,7 @@
 			        if (result.error == 1) {
 			        	$("#tweetsContent").val('');
 			        	jc.info("发布成功");
+			        	loadTweetsList();
 			        }else if (result.error == -1){
 			        	jc.error("用户尚未登录，请<a href='${pageContext.request.contextPath }/system/login/index.html'>登录</a>后再发动弹");
 			        }else if (result.error == 0) {
@@ -149,6 +128,46 @@
         	});
         });
         showPageInfo_common("divPaging_new", 20, 1);
+        loadTweetsList();
     });
+    function loadTweetsList(){
+    	jc.post({
+    		url : "${pageContext.request.contextPath}/tweets/list.html",
+    		data : {},
+    		success : function(result){
+				if (result == null || result.data.length == 0) {
+					return;
+				}
+    			$("#tweetsBody").empty();
+				for (var i = 0; i < result.data.length; i ++) {
+					var $node = $('<div class="row">' +
+			                '<div class="panel panel-default">' +
+							'<div class="panel-body">' +
+								'<div class="col-sm-2 header">' +
+			                        '<a  href="#"  title="'+result.data[i].userName+'">' +
+			                            '<img class="img-circle" src="https://static.oschina.net/uploads/user/68/136226_50.jpg?t=1402318962000">' +
+			                        '</a>' +
+			                    '</div>' +
+			                    '<div class="col-sm-10 content">' +
+			                        '<div class="box vertical">' +
+	                					'<a class="ti-uname" href="#" title="'+result.data[i].userName+'" target="_blank">'+result.data[i].userName+'&nbsp;&nbsp;</a>' +
+	                					'<span class="dark-box" >'+result.data[i].beforeTime+'</span>' +
+	                            	'</div>' +
+			                        '<section class="blog-brief text-gradient">'+replaceQQContent_common(result.data[i].tweetsContent)+'</section>' +
+			                        '<footer class="dark-box">' +
+			                            '<span class="glyphicon glyphicon-thumbs-up span-icon" ><value>'+result.data[i].likeNum+'</value></span>' +
+			                            '<span class="glyphicon glyphicon-comment span-icon" ><value>'+result.data[i].commentNum+'</value></span>' +
+			                            '<span >查看详情</span>' +
+			                        '</footer>' +
+			                    '</div>' +
+							'</div>' +
+						'</div>' +
+	                '</div>');
+					$("#tweetsBody").append($node);
+				}
+			}
+    	});
+    }
+    
     </script>
 </div>

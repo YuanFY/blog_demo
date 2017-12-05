@@ -23,6 +23,8 @@ public class TweetsEntity {
     
     //用于页面展示
     private String beforeTime;
+    
+    private String userName;
 
     public String getId() {
         return id;
@@ -54,6 +56,7 @@ public class TweetsEntity {
 
     public void setTweetsTime(Long tweetsTime) {
         this.tweetsTime = tweetsTime;
+        this.setBeforeTime(tweetsTime);
     }
 
     public int getLikeNum() {
@@ -101,5 +104,13 @@ public class TweetsEntity {
 		} else if (currentTimes - tweetsTime >= 1000 * 60 * 60 * 24 * 365) {
 			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 365) + "年前";//大于一个年用年表示
 		}
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

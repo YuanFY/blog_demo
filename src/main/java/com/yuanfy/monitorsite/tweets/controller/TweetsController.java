@@ -2,6 +2,7 @@ package com.yuanfy.monitorsite.tweets.controller;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.yuanfy.monitorsite.common.util.DateUtils;
 import com.yuanfy.monitorsite.framework.SessionUtil;
 import com.yuanfy.monitorsite.framework.dto.AjaxResult;
+import com.yuanfy.monitorsite.framework.dto.TableResult;
 import com.yuanfy.monitorsite.system.entity.UserEntity;
 import com.yuanfy.monitorsite.tweets.entity.TweetsEntity;
 import com.yuanfy.monitorsite.tweets.service.TweetsService;
@@ -68,25 +70,9 @@ public class TweetsController{
 	
 	@RequestMapping(value = "/tweets/list")
 	@ResponseBody
-	public AjaxResult list(TweetsEntity entity, HttpServletRequest request) {
-		AjaxResult result = new AjaxResult(0);
-		try{
-			//1、 先获取用户信息
-			UserEntity user = SessionUtil.getUser(request);
-			if (user == null) {
-				result.setError(-1);
-				result.setMsg("请先登录");
-				return result;
-			}
-			//2 发布动弹
-			entity.setUserId(user.getId());
-			entity.setTweetsTime(System.currentTimeMillis());
-			tweetsService.insert(entity);
-			result.setError(1);
-		} catch (Exception e) {
-			log.error("发表动弹内容失败：", e);
-			result.setMsg("发布失败，请联系管理员！");
-		}
+	public TableResult<TweetsEntity> list(TweetsEntity entity, HttpServletRequest request) {
+		TableResult<TweetsEntity> result = new TableResult<TweetsEntity>();
+		result.setData(tweetsService.findAll());
 		return result;
 	}
 	
