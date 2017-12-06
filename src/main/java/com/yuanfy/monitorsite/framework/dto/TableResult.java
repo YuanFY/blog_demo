@@ -1,9 +1,10 @@
 package com.yuanfy.monitorsite.framework.dto;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * @description 列表结果返回集合
+ * @description 表格数据结果
  * @author YuanFY 
  * @date 2017年12月5日 下午9:18:29
  * @version 1.0
@@ -13,31 +14,75 @@ public class TableResult<T> {
 
 	private List<T> data;
 	
-	private int total;
+	/**
+	 * 数据总条数
+	 */
+	private Long dataTotal;
 	
-	private int pageNo;
+	/**
+	 * 总页数
+	 */
+	private Integer pageTotal; 
+	/**
+	 * 当前页条数
+	 */
+	private Integer currentPageSize;
+	
+	/**
+	 * 当前页
+	 */
+	private Integer currentPage;
 
-	public List<T> getData() {
-		return data;
-	}
+	/**
+	 * 辅助性参数
+	 */
+	private Map<String, Object> arguments;
 
-	public void setData(List<T> data) {
-		this.data = data;
-	}
+    public List<T> getData() {
+        return data;
+    }
 
-	public int getTotal() {
-		return total;
-	}
+    public void setData(List<T> data) {
+        this.data = data;
+    }
 
-	public void setTotal(int total) {
-		this.total = total;
-	}
+    public Long getDataTotal() {
+        return dataTotal;
+    }
 
-	public int getPageNo() {
-		return pageNo;
-	}
+    public void setDataTotal(Long dataTotal) {
+        this.dataTotal = dataTotal;
+    }
 
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
+    public Integer getPageTotal() {
+        return pageTotal;
+    }
+
+    public void setPageTotal(Integer pageTotal) {
+        this.pageTotal = pageTotal;
+    }
+
+    public Integer getCurrentPageSize() {
+        return currentPageSize;
+    }
+
+    public void setCurrentPageSize(Integer currentPageSize) {
+        this.currentPageSize = currentPageSize;
+    }
+
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public Map<String, Object> getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(Map<String, Object> arguments) {
+        this.arguments = arguments;
+    }
 }
