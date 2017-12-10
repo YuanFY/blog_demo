@@ -13,7 +13,7 @@ public class PersonTest2 {
         Person person = new Person("James", 32, "red");
         
         //System.out.println("name:" + person.name);//private 编译报错，所以private修饰的 是不能在其他包下的任何类访问（除了自身）
-        //System.out.println("age:" + person.age);// default 编译报错，所以default修饰的  是不能在其他包下访问的()。
+        //System.out.println("age:" + person.age);// default 编译报错，所以default修饰的  是不能在其他包下访问的。
         //System.out.println("color:" + person.color);//protected 编译报错，所以default修饰的  是不能在其他包下访问的。
         person.say();//public
     }

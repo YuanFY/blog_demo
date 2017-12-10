@@ -15,10 +15,9 @@ public class BlackPerson extends Person{
     public static void main(String[] args) {
         BlackPerson person = new BlackPerson("James", 32);
         
-        System.out.println("name:" + person.name);//private 编译报错，所以private修饰的 是不能在同包下的子孙类访问
-        System.out.println("age:" + person.age);// default  
+        //System.out.println("name:" + person.name);//private 编译报错，所以private修饰的 是不能在不同包下的子孙类访问
+        //System.out.println("age:" + person.age);// default  编译报错，所以default修饰的时不能在不同包下的子孙类访问
         System.out.println("color:" + person.color);//protected 
         person.say();//public
     }
-
 }
