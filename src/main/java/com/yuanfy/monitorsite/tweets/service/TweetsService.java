@@ -1,6 +1,7 @@
 package com.yuanfy.monitorsite.tweets.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,11 @@ public class TweetsService extends BaseService<TweetsEntity>{
     @Autowired
     public TweetsMapper tweetsMapper;
     
-    public List<TweetsEntity> findAll(){
-        return tweetsMapper.findAll();
+    public List<TweetsEntity> findAll(Map<String, Object> params){
+        return tweetsMapper.findAll(params);
+    }
+    
+    public Long getCount(){
+        return tweetsMapper.getCount();
     }
 }

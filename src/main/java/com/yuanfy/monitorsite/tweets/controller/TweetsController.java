@@ -1,8 +1,8 @@
 package com.yuanfy.monitorsite.tweets.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -41,6 +41,7 @@ public class TweetsController{
 	
 	@RequestMapping(value = "/tweets/index")
 	public String index(HttpServletRequest request,Model model) {
+		model.addAttribute("listSize", tweetsService.getCount());
 		return "/tweets/index";
 	}
 	
@@ -70,9 +71,12 @@ public class TweetsController{
 	
 	@RequestMapping(value = "/tweets/list")
 	@ResponseBody
-	public TableResult<TweetsEntity> list(TweetsEntity entity, HttpServletRequest request) {
+	public TableResult<TweetsEntity> list(TweetsEntity entity, int page,int limit, HttpServletRequest request) {
 		TableResult<TweetsEntity> result = new TableResult<TweetsEntity>();
-		result.setData(tweetsService.findAll());
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("start", (page-1) * limit);
+		params.put("limit", limit);
+		result.setData(tweetsService.findAll(params));
 		return result;
 	}
 	

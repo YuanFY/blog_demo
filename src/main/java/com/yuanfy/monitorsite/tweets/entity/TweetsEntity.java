@@ -88,21 +88,22 @@ public class TweetsEntity {
 	}
 
 	public void setBeforeTime(Long tweetsTime) {
-		Long currentTimes = System.currentTimeMillis();
-		if (currentTimes - tweetsTime < 1000 * 60) {
+		long currentTimes = System.currentTimeMillis();
+		long time = (currentTimes-tweetsTime.longValue())/1000;
+		if (time < 60) {
 			this.beforeTime = "刚刚";//小于一分钟
-		} else if (currentTimes - tweetsTime < 1000 * 60 * 60) {
-			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60) + "分钟前";//小于一个小时用分钟表示
-		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24) {
-			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60) + "小时前";//小于一个天用小时表示
-		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24 * 7) {
-			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24) + "天前";//小于一个星期用天表示
-		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24 * 30) {
-			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 7) + "周前";//小于一个月用星期表示
-		} else if (currentTimes - tweetsTime < 1000 * 60 * 60 * 24 * 365) {
-			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 30) + "月前";//小于一个年用月表示
-		} else if (currentTimes - tweetsTime >= 1000 * 60 * 60 * 24 * 365) {
-			this.beforeTime = (currentTimes - tweetsTime)/(1000 * 60 * 60 * 24 * 365) + "年前";//大于一个年用年表示
+		} else if (time < 60 * 60) {
+			this.beforeTime = time/60 + "分钟前";//小于一个小时用分钟表示
+		} else if (time < 60 * 60 * 24) {
+			this.beforeTime = time/(60 * 60) + "小时前";//小于一个天用小时表示
+		} else if (time < 60 * 60 * 24 * 7) {
+			this.beforeTime = time/(60 * 60 * 24) + "天前";//小于一个星期用天表示
+		} else if (time < 60 * 60 * 24 * 30) {
+			this.beforeTime = time/(60 * 60 * 24 * 7) + "周前";//小于一个月用星期表示
+		} else if (time < 60 * 60 * 24 * 365) {
+			this.beforeTime = time/(60 * 60 * 24 * 30) + "月前";//小于一个年用月表示
+		} else if (time >= 60 * 60 * 24 * 365) {
+			this.beforeTime = time/(60 * 60 * 24 * 365) + "年前";//大于一个年用年表示
 		}
 	}
 

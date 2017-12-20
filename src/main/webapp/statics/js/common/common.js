@@ -39,7 +39,7 @@ function showPageInfo_common(pageId,dataTotal,pageNo){
 		items_per_page : pageLimit,
 		num_display_entries : display,
 		callback: function(page){
-			//doquery_list(page+1);
+			doquery_list(page+1);
 		}
 	});
 }

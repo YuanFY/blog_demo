@@ -47,5 +47,12 @@
 		select t.*,u.name userName from tb_tweets t
 		join tb_sys_user u on u.id = t.user_id
 		order by tweets_time desc
+		<if test="start != null and limit != null">
+			limit #{start}, #{limit}
+		</if>
+	</select>
+	
+	<select id="getCount" resultType="java.lang.Long">
+		select count(*) from tb_tweets;
 	</select>
 </mapper>

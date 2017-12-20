@@ -127,13 +127,13 @@
 				}
         	});
         });
-        showPageInfo_common("divPaging_new", 20, 1);
-        loadTweetsList();
+        showPageInfo_common("divPaging_new", parseInt("${listSize}"), 1);
+        doquery_list(1);
     });
-    function loadTweetsList(){
+    function doquery_list(page){
     	jc.post({
     		url : "${pageContext.request.contextPath}/tweets/list.html",
-    		data : {},
+    		data : {page:page,limit:10},
     		success : function(result){
 				if (result == null || result.data.length == 0) {
 					return;
@@ -174,7 +174,6 @@
     	} else {
     		$(e).addClass("liked");
     	}
-    	
     }
     </script>
 </div>
