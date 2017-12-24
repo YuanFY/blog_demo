@@ -55,4 +55,14 @@
 	<select id="getCount" resultType="java.lang.Long">
 		select count(*) from tb_tweets;
 	</select>
+	
+	<select id="findHotList" resultMap="tweetsMap">
+		select t.*,u.name userName from tb_tweets t
+		join tb_sys_user u on u.id = t.user_id
+		where t.like_num > 14 or t.comment_num > 14
+		order by t.like_num, t.comment_num desc
+		<if test="limit != null">
+			limit 0, #{limit}
+		</if>
+	</select>
 </mapper>

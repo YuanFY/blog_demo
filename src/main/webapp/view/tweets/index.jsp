@@ -30,33 +30,7 @@
             <ul class="nav nav-pills nav-stacked">
 				<li class="active"><a href="#">热门动弹</a></li>
 			</ul>
-			<div class="row">
-				<c:forEach begin="1" end="9">
-                <div class="row">
-	                <div class="panel panel-default">
-						<div class="panel-body">
-							<div class="col-sm-2 header-sm">
-		                        <a  href="#"  title="苗哥" style="float:left">
-		                            <img class="img-circle" src="https://static.oschina.net/uploads/user/68/136226_50.jpg?t=1402318962000">
-		                        </a>
-		                    </div>
-		                    <div class="col-sm-10 content-sm">
-		                        <div class="box vertical">
-                					<a class="ti-uname" href="https://my.oschina.net/hardbone" title="局长" target="_blank">局长&nbsp;&nbsp;</a>
-                					<span class="dark-box" >12分钟前</span>
-                            	</div>
-		                        <section class="blog-brief text-gradient">在html文件中，使用svg标记可以绘制图形。这个例子中主要用到path，linearGradient两个技术</section>
-		                        <footer class="dark-box">
-		                            <span class="glyphicon glyphicon-thumbs-up span-icon" ><value>0</value></span>
-		                            <span class="glyphicon glyphicon-comment span-icon" ><value>0</value></span>
-		                            <span >查看详情</span>
-		                        </footer>
-		                    </div>
-						</div>
-					</div>
-                </div>
-                </c:forEach>
-			</div>
+			<div id="hotTweetsList"></div>
         </div>
     </div>
     <script type="text/javascript">
@@ -129,11 +103,12 @@
         });
         showPageInfo_common("divPaging_new", parseInt("${listSize}"), 1);
         doquery_list(1);
+        doquery_hotList();
     });
     function doquery_list(page){
     	jc.post({
     		url : "${pageContext.request.contextPath}/tweets/list.html",
-    		data : {page:page,limit:10},
+    		data : {page:page,limit:8},
     		success : function(result){
 				if (result == null || result.data.length == 0) {
 					return;
@@ -164,6 +139,43 @@
 						'</div>' +
 	                '</div>');
 					$("#tweetsBody").append($node);
+				}
+			}
+    	});
+    }
+    function doquery_hotList(){
+    	jc.post({
+    		url : "${pageContext.request.contextPath}/tweets/hot/list.html",
+    		data : {limit:9},
+    		success : function(result){
+				if (result == null || result.data.length == 0) {
+					return;
+				}
+    			$("#hotTweetsList").empty();
+				for (var i = 0; i < result.data.length; i ++) {
+					var $node = $('<div class="row">' +
+			                '<div class="panel panel-default">' +
+							'<div class="panel-body">' +
+								'<div class="col-sm-2 header-sm">' +
+			                        '<a  href="#"  title="'+result.data[i].userName+'">' +
+			                            '<img class="img-circle" src="https://static.oschina.net/uploads/user/68/136226_50.jpg?t=1402318962000">' +
+			                        '</a>' +
+			                    '</div>' +
+			                    '<div class="col-sm-10 content-sm">' +
+			                        '<div class="box vertical">' +
+	                					'<a class="ti-uname" href="#" title="'+result.data[i].userName+'" target="_blank">'+result.data[i].userName+': &nbsp;&nbsp;</a>' +
+	                            	'</div>' +
+			                        '<section class="blog-brief text-gradient">'+replaceQQContent_common(result.data[i].tweetsContent)+'</section>' +
+			                        '<footer class="dark-box">' +
+			                            '<span class="glyphicon glyphicon-thumbs-up span-icon" title="点赞" onclick="liked(this)"><value>'+result.data[i].likeNum+'</value></span>' +
+			                            '<span class="glyphicon glyphicon-comment span-icon"><value>'+result.data[i].commentNum+'</value></span>' +
+			                            '<span >查看详情</span>' +
+			                        '</footer>' +
+			                    '</div>' +
+							'</div>' +
+						'</div>' +
+	                '</div>');
+					$("#hotTweetsList").append($node);
 				}
 			}
     	});

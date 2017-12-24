@@ -10,16 +10,13 @@
 .header .navbar .navbar-header a, .header .navbar .nav a{
 	color:white;
 }
-#mySpaceDropMenuUL a{
+#mySpaceDropMenuUL a, #dropDownMenu li a{
 	color: black;
 }
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus,
 	.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus{
 	color:white;
 	background-color: #0482ba;
-}
-#dropDownMenu li a{
-	color: black;
 }
 /*******主页布局********/
 #home-container{width:1200px}
@@ -56,9 +53,6 @@
     font-size: 12px;
     color: #9B9B9B;
 }
-#new-tweets #tweetsContent .glyphicon {
-	 font-size: 14px;
-}
 #new-tweets #tweetsContent .row .col-sm-10{
     padding-left: 0px;
 }
@@ -90,8 +84,6 @@ value{padding-left: 5px}
 .footer{background: #444444}
 .row{
 	margin: 10px 0;
-}
-.row{
 	margin-top:10px;
 }
 .row .header {
@@ -181,9 +173,10 @@ textarea{
 .modal-footer{
 	padding: 5px;
 }
-.glyphicon{
-	cursor: pointer;
-}
 .liked{
 	color: #0593d3
+}
+.glyphicon {
+	 font-size: 14px;
+	 cursor: pointer;
 }

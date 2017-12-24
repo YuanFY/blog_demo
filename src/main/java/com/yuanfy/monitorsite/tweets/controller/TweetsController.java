@@ -71,12 +71,27 @@ public class TweetsController{
 	
 	@RequestMapping(value = "/tweets/list")
 	@ResponseBody
-	public TableResult<TweetsEntity> list(TweetsEntity entity, int page,int limit, HttpServletRequest request) {
+	public TableResult<TweetsEntity> list(int page,int limit) {
 		TableResult<TweetsEntity> result = new TableResult<TweetsEntity>();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("start", (page-1) * limit);
 		params.put("limit", limit);
 		result.setData(tweetsService.findAll(params));
+		return result;
+	}
+	
+	/**
+	 * @description 获取热门动弹
+	 * @param limit 限制条数
+	 * @author YuanFY
+	 * @date 2017年12月24日 上午10:25:37
+	 * @version 1.0
+	 */
+	@RequestMapping(value = "/tweets/hot/list")
+	@ResponseBody
+	public TableResult<TweetsEntity> hotList(Integer limit) {
+		TableResult<TweetsEntity> result = new TableResult<TweetsEntity>();
+		result.setData(tweetsService.findHotList(limit));
 		return result;
 	}
 	

@@ -30,4 +30,14 @@ public class TweetsService extends BaseService<TweetsEntity>{
     public Long getCount(){
         return tweetsMapper.getCount();
     }
+    /**
+	 * @description 获取热门动弹（热门动弹：评论或点赞数超过15，且根据点赞数和评论数降序排序）
+	 * @param limit 限制条数
+	 * @author YuanFY
+	 * @date 2017年12月24日 上午10:25:37
+	 * @version 1.0
+	 */
+    public List<TweetsEntity> findHotList(Integer limit) {
+    	return tweetsMapper.findHotList(limit);
+    }
 }
