@@ -10,7 +10,7 @@ import java.net.Socket;
 import org.apache.log4j.Logger;
 
 import com.yuanfy.monitorsite.common.util.SocketUtils;
-import com.yuanfy.monitorsite.common.util.StreamUtils;
+import com.yuanfy.monitorsite.common.util.file.StreamUtils;
 
 
 /**

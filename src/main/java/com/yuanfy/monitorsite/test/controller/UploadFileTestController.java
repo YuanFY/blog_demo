@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.yuanfy.monitorsite.common.util.FileUtils;
+import com.yuanfy.monitorsite.common.util.file.FileUtils;
 
 @Controller
 public class UploadFileTestController {

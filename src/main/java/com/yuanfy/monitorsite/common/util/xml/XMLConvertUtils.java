@@ -1,4 +1,4 @@
-package com.yuanfy.monitorsite.common.util;
+package com.yuanfy.monitorsite.common.util.xml;
 
 import java.beans.IntrospectionException;
 import java.io.IOException;
