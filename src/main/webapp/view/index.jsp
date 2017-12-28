@@ -145,7 +145,7 @@
         }
         $('#header-nav li').each(function (e) {
             var href = $(this).find("a").attr("href");
-            if (href == currentId) {
+            if (currentId.indexOf(href) > -1) {
                 $(this).find("a").tab('show');
                 $(this).addClass("active");
             } else {
@@ -163,46 +163,22 @@
             $(this).empty();
         });
         if (id == "#index") {
-            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html', null, 'index');
         } else if (id == "#blog"){
-            showContentById_common('${pageContext.request.contextPath}/blog/index.html','', 'blog');
+            showContentById_common('${pageContext.request.contextPath}/blog/index.html',null, 'blog');
         } else if (id == "#readBook"){
-            showContentById_common('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
+            showContentById_common('${pageContext.request.contextPath}/readBook/index.html',null, 'readBook');
         } else if (id == "#tweets"){
-            showContentById_common('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
+            showContentById_common('${pageContext.request.contextPath}/tweets/index.html',null, 'tweets');
         } else if (id == "#question"){
-            showContentById_common('${pageContext.request.contextPath}/question/index.html','', 'question');
+            showContentById_common('${pageContext.request.contextPath}/question/index.html',null, 'question');
         } else if (id == "#chat"){
-            showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
-        } else if (id == "#test"){
-            showContentById_common('${pageContext.request.contextPath}/test/index.html','', 'test');
+            showContentById_common('${pageContext.request.contextPath}/chat/index.html',null, 'chat');
+        } else if (id.indexOf("#test") > -1){
+            showContentById_common('${pageContext.request.contextPath}/test/index.html',null, 'test');
         } else {
-            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
+            showContentById_common('${pageContext.request.contextPath}/home/index.html',null, 'index');
         }
     }
-    /**
-        shown.bs.tab事件在标签页显示时触发，但是必须在某个标签页已经显示之后。
-                       分别使用 event.target 和 event.relatedTarget 来定位到激活的标签页和前一个激活的标签页。
-    */
-    /* $('a[data-toggle="tab"]').on('shown.bs.tab',function(e) {
-    	$("#footer").hide();
-        $(".tab-content div").each(function(){
-            $(this).empty();
-        });
-        var id = $(e.target).attr('href');
-        if (id == "#index") {
-            showContentById_common('${pageContext.request.contextPath}/home/index.html','', 'index');
-        } else if (id == "#blog"){
-        	showContentById_common('${pageContext.request.contextPath}/blog/index.html','', 'blog');
-        } else if (id == "#readBook"){
-            showContentById_common('${pageContext.request.contextPath}/readBook/index.html','', 'readBook');
-        } else if (id == "#tweets"){
-            showContentById_common('${pageContext.request.contextPath}/tweets/index.html','', 'tweets');
-        } else if (id == "#question"){
-            showContentById_common('${pageContext.request.contextPath}/question/index.html','', 'question');
-        } else if (id == "#chat"){
-            showContentById_common('${pageContext.request.contextPath}/chat/index.html','', 'chat');
-        }
-    }); */
 </script>
 </html>
