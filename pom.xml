@@ -220,7 +220,14 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency> 
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-betwixt/commons-betwixt -->
+		<dependency>
+		    <groupId>commons-betwixt</groupId>
+		    <artifactId>commons-betwixt</artifactId>
+		    <version>0.8</version>
+		</dependency>
+		 
     	<!-- end -->
     	<!-- TEST begin -->
 		<dependency>
