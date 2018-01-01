@@ -92,37 +92,12 @@ function replaceQQContent_common(str){
 	str = str.replace(/\[\:([a-zA-Z0-9_\u4e00-\u9fa5]*)\]/g,'<img src="statics/images/gif/$1.gif" border="0" />');
 	return str;
 }
-
-//**************************************异步提交函数**********************************************
 /**
- * 异步请求公共函数
- * @param url      -- not null
- * @param params   -- default null
- * @param dataType -- default json
- * @param methodType   -- default get
- * @param isSync      是否同步  default true
- * @param successMsg  成功信息 default null
- * @param errorMsg    错误信息 default null
+ * 替换超链接
+ * @param str 
  * @returns
  */
-function ajaxRequest_common(url, params, dataType, methodType, isSync, successMsg, errorMsg){
-	$.ajax({
-	    url : url,
-	    data : params,
-	    type : methodType == null ? "get" : methodType,
-	    async : isSync == null ? true : isSync,
-	    dataType: dataType == null ? "json" : dataType,
-	    success : function(result){
-	    	var msg = null;
-	        if (result.error == 1) {
-	        	msg = (successMsg != null ? successMsg : result.msg);
-	        }else if (result.error == 0) {
-	        	msg = (errorMsg != null ? errorMsg : result.msg);
-	        } else {
-	        	msg = result.msg
-	        }
-	        alert(msg);
-	    },
-	    error : {}
-	}); 
+function replaceHref_common(str){
+	str = str.replace(/(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g,"<a href='$1$2' target='_blank'>$1$2</a>");
+	return str;
 }

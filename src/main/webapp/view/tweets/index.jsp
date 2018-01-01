@@ -92,7 +92,7 @@
 			        if (result.error == 1) {
 			        	$("#tweetsContent").val('');
 			        	jc.info("发布成功");
-			        	loadTweetsList();
+			        	doquery_list(1);
 			        }else if (result.error == -1){
 			        	jc.warn("用户尚未登录，请<a href='${pageContext.request.contextPath }/system/login/index.html'>登录</a>后再发动弹");
 			        }else if (result.error == 0) {
@@ -128,7 +128,7 @@
 	                					'<a class="ti-uname" href="#" title="'+result.data[i].userName+'" target="_blank">'+result.data[i].userName+'&nbsp;&nbsp;</a>' +
 	                					'<span class="dark-box" >'+result.data[i].beforeTime+'</span>' +
 	                            	'</div>' +
-			                        '<section class="blog-brief text-gradient">'+replaceQQContent_common(result.data[i].tweetsContent)+'</section>' +
+			                        '<section class="blog-brief text-gradient">'+replaceHref_common(replaceQQContent_common(result.data[i].tweetsContent))+'</section>' +
 			                        '<footer class="dark-box">' +
 			                            '<span class="glyphicon glyphicon-thumbs-up span-icon" title="点赞" onclick="liked(this)"><value>'+result.data[i].likeNum+'</value></span>' +
 			                            '<span class="glyphicon glyphicon-comment span-icon"><value>'+result.data[i].commentNum+'</value></span>' +
