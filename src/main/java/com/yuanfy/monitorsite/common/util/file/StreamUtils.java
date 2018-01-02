@@ -4,6 +4,7 @@ package com.yuanfy.monitorsite.common.util.file;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -37,9 +38,25 @@ public class StreamUtils {
         }
     }
     
-    public static void close(InputStream in) throws IOException {
+    public static void close(InputStream in){
         if (in != null) {
-            in.close();
+            try {
+                in.close();
+            }
+            catch (IOException e) {
+                log.error("关闭输入流失败：", e);
+            }
+        }
+    }
+    
+    public static void close(OutputStream out){
+        if (out != null) {
+            try {
+                out.close();
+            }
+            catch (IOException e) {
+                log.error("关闭输出流失败：", e);
+            }
         }
     }
     
