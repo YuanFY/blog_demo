@@ -23,12 +23,17 @@ public class ResPathUtils {
     
     private static ResourceBundle resource = ResourceBundle.getBundle("path");
     
+    public final static String WCI_FILE_NAME = "license.wci";
+    
+    public final static String WLIC_FILE_NAME = "license.wlic";
+    
+    public final static String PUBLICKEY = "publickey";
     /**
      * @Description: 获取所有额外存放文件的根路径
      * @return
      * @author yuanfy
      * @date 2017年12月29日 下午3:34:04 
-     * @version 6.5
+     * @version 1.0
      */
     public static String getHome() {
         String userHome = System.getProperty("user.home");
@@ -47,7 +52,7 @@ public class ResPathUtils {
      * @return
      * @author yuanfy
      * @date 2017年12月29日 下午3:42:17 
-     * @version 6.5
+     * @version 1.0
      */
     public static String getKeyStorePath(){
         String path = getHome() + getPathByKey("keystore_path");
@@ -57,14 +62,43 @@ public class ResPathUtils {
     
     /**
      * @Description: 获取license文件存放的路径
-     * @return
      * @author yuanfy
      * @date 2017年12月29日 下午3:42:17 
-     * @version 6.5
+     * @version 1.0
      */
     public static String getLicensePath(){
         String path = getHome() + getPathByKey("license_file_path");
         createPath(path);
+        return path;
+    }
+    /**
+     * @Description: 获取wci文件存放的路径
+     * @author yuanfy
+     * @date 2017年12月29日 下午3:42:17 
+     * @version 1.0
+     */
+    public static String getWciPath(){
+        String path = getLicensePath() + fileSeparator + WCI_FILE_NAME;
+        return path;
+    }
+    /**
+     * @Description: 获取wlic文件存放的路径
+     * @author yuanfy
+     * @date 2017年12月29日 下午3:42:17 
+     * @version 1.0
+     */
+    public static String getWlicPath(){
+        String path = getLicensePath() + fileSeparator + WLIC_FILE_NAME;
+        return path;
+    }
+    /**
+     * @Description: 获取publickey文件存放的路径
+     * @author yuanfy
+     * @date 2017年12月29日 下午3:42:17 
+     * @version 1.0
+     */
+    public static String getPublicKeyPath(){
+        String path = getLicensePath() + fileSeparator + PUBLICKEY;
         return path;
     }
     
@@ -73,7 +107,7 @@ public class ResPathUtils {
      * @return
      * @author yuanfy
      * @date 2017年12月29日 下午3:43:28 
-     * @version 6.5
+     * @version 1.0
      */
     public static boolean isWindows() {
         if (StringUtils.isEmpty(osType) || osType.toLowerCase().contains("windows")) {
@@ -86,7 +120,7 @@ public class ResPathUtils {
      * @Description: 根据path.properties中的key获取其对应的值。
      * @author yuanfy
      * @date 2017年12月29日 下午3:44:36 
-     * @version 6.5
+     * @version 1.0
      */
     public static String getPathByKey(String key) {
         return resource.getString(key);
@@ -99,7 +133,7 @@ public class ResPathUtils {
      * @return
      * @author yuanfy
      * @date 2017年12月29日 下午4:07:32 
-     * @version 6.5
+     * @version 1.0
      */
     public static File createPath(String path, boolean isDir) {
         File file = new File(path);

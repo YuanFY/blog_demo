@@ -190,10 +190,10 @@ $(function(){
                     setTimeout(function(){
                         $("#downloadBtn").attr("disabled", false);
                         $('.modal-header .close').click();
-                        jf.alert1("系统提示","文件获取成功",'','');
+                        jc.alert("系统提示","文件获取成功",'','');
                     }, 500);
                 }else{
-                    jf.error("文件获取失败，请重试", 3000);
+                    jf.error(result.msg, 3000);
                     $("#downloadBtn").attr("disabled", false);
                 }
             }
