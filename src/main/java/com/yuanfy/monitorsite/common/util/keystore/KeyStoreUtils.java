@@ -136,7 +136,7 @@ public class KeyStoreUtils {
         finally {
             StreamUtils.close(oos);
         }
-        log.info("创建并写入publickey成功");
+        log.info("创建并写入publickey成功,请去"+ResPathUtils.getKeyStorePath()+"目录下获取！");
     }
     /**
      * @Description: 获取公钥
