@@ -16,8 +16,11 @@ import java.security.cert.Certificate;
 
 import org.apache.log4j.Logger;
 
+import com.yuanfy.monitorsite.common.util.Base64Utils;
+import com.yuanfy.monitorsite.common.util.alogrithm.RSAUtils;
 import com.yuanfy.monitorsite.common.util.file.ResPathUtils;
 import com.yuanfy.monitorsite.common.util.file.StreamUtils;
+import com.yuanfy.monitorsite.common.util.xml.XMLConvertUtils;
 
 
 /**
@@ -97,7 +100,7 @@ public class KeyStoreUtils {
     private static String createCommand(String filePath) {
         StringBuffer command = new StringBuffer();
         command.append("keytool -genkeypair -dname \"CN=YuanFY, OU=YuanFY, O=YuanFY, L=GZ, ST=GD, C=CN\" -alias ")
-        .append(ALIAS).append(" -keyalg RSA -keystore ").append(filePath).append(" -keypass ")
+        .append(ALIAS).append(" -keyalg RSA -keysize 1024 -keystore ").append(filePath).append(" -keypass ")
         .append(KEY_PASS).append(" -storepass ").append(STORAGE_PASS).append(" -validity 100000");
         return command.toString();
     }
@@ -217,5 +220,23 @@ public class KeyStoreUtils {
             StreamUtils.close(fis);
         }
         return null;
+    }
+    /**
+     * @Description: 解密wci文件内容
+     * @param encryptInfo 文件内容
+     * @param className 需要转换bean的类名
+     * @return
+     * @author yuanfy
+     * @date 2018年1月4日 下午4:39:02 
+     * @version 1.0
+     */
+    public static Object decryptWciInfo(String encryptInfo, String className) {
+        //1、base64解码
+        byte[] data = Base64Utils.decode(encryptInfo);
+        //2、使用私钥解密
+        PrivateKey privateKey = KeyStoreUtils.getPrivateKey();
+        String xmlStr = RSAUtils.decrypt(privateKey, data);
+        //3 转化成bean
+        return XMLConvertUtils.xmlConvertObject(xmlStr, className);
     }
 }
