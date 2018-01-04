@@ -33,7 +33,7 @@ public class LicenseController {
     public void downloadWCIFile(LicenseEntity entity, HttpServletResponse response){
         try {
             //加密许可信息
-            String encryptInfo = LicenseManager.encryptLicenseInfo(entity);
+            String encryptInfo = LicenseManager.encryptWciInfo(entity);
             DownloadUtils.setFileDownloadHeader(response, ResPathUtils.WCI_FILE_NAME, null);
             OutputStream out = response.getOutputStream();
             out.write(encryptInfo.getBytes());
@@ -55,7 +55,7 @@ public class LicenseController {
         AjaxResult result = new AjaxResult(1);
         try {
             //加密许可信息
-            if (LicenseManager.encryptLicenseInfo(entity) == null) {
+            if (LicenseManager.encryptWciInfo(entity) == null) {
                 result.setError(0);
                 result.setMsg("检测下载wci文件失败，请重试");
             }

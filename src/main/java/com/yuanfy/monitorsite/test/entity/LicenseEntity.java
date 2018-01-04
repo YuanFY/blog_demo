@@ -1,6 +1,5 @@
 package com.yuanfy.monitorsite.test.entity;
 
-import java.util.Map;
 
 /**
  * @Description: license实体类
@@ -18,8 +17,6 @@ public class LicenseEntity {
     
     private Integer number;
     
-    private Map<String, Object> params ;
-
     public String getOrgName() {
         return orgName;
     }
@@ -52,12 +49,10 @@ public class LicenseEntity {
         this.number = number;
     }
 
-    public Map<String, Object> getParams() {
-        return params;
-    }
-
-    public void setParams(Map<String, Object> params) {
-        this.params = params;
+    @Override
+    public String toString() {
+        return "LicenseEnriry [orgName=" +orgName+ ", orgPhone=" + orgPhone
+                + ", version=" + version + ", number=" + number + "]";
     }
     
 }
