@@ -4,8 +4,6 @@ import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.betwixt.io.BeanReader;
 import org.apache.commons.betwixt.io.BeanWriter;
@@ -13,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-import com.yuanfy.monitorsite.test.entity.LicenseEntity;
+import com.yuanfy.monitorsite.common.util.file.StreamUtils;
 
 /**
  * @Description: Xml文件与javaBean对象互转工具类 
@@ -53,12 +51,8 @@ public class XMLConvertUtils {
             log.error("beanWriter write：", e);
             return null;
         }finally {
-            try{
-                beanWriter.close();
-                stringWriter.close();
-            }catch (IOException e){
-                log.error("close IOException:", e);
-            }
+            StreamUtils.close(beanWriter);
+            StreamUtils.close(stringWriter);
         }
         return xmlString;
     }
@@ -97,26 +91,8 @@ public class XMLConvertUtils {
             log.error("beanReader.parse 解析报错：", e);
         }
         finally {
-            stringReader.close();
+            StreamUtils.close(stringReader);
         }
         return obj;
-    }
-    
-    public static void main(String[] args) {
-        LicenseEntity entity = new LicenseEntity();
-        entity.setNumber(1234);
-        entity.setOrgName("阿斯蒂芬");
-        entity.setOrgPhone("1234");
-        //entity.setVersion("1234");
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("tqewr", 1234);
-        map.put("哈哈", "善心");
-        entity.setParams(map);
-        String xmlStr = objectConvertXMl(entity);
-        System.out.println(xmlStr);
-        
-        LicenseEntity obj = (LicenseEntity)xmlConvertObject(xmlStr, LicenseEntity.class.getCanonicalName());
-        System.out.println(obj.getOrgName());
-        System.out.println(obj.getOrgPhone());
     }
 }
