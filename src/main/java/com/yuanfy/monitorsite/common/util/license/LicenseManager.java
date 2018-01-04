@@ -12,9 +12,12 @@ import org.slf4j.LoggerFactory;
 import com.yuanfy.monitorsite.common.util.Base64Utils;
 import com.yuanfy.monitorsite.common.util.StringUtils;
 import com.yuanfy.monitorsite.common.util.alogrithm.RSAUtils;
+import com.yuanfy.monitorsite.common.util.alogrithm.SignatureUtils;
+import com.yuanfy.monitorsite.common.util.file.FileUtils;
 import com.yuanfy.monitorsite.common.util.file.ResPathUtils;
 import com.yuanfy.monitorsite.common.util.file.StreamUtils;
 import com.yuanfy.monitorsite.common.util.xml.XMLConvertUtils;
+import com.yuanfy.monitorsite.test.entity.BlogLicense;
 import com.yuanfy.monitorsite.test.entity.LicenseEntity;
 
 /**
@@ -60,15 +63,13 @@ public class LicenseManager {
     }
     
     /**
-     * @Description: 加密license信息
-     * @param entity
-     * @return
+     * @Description: 加密wci文件信息
      * @author yuanfy
      * @date 2018年1月3日 上午11:19:57 
      * @version 1.0
      * @throws FileNotFoundException 
      */
-    public static String encryptLicenseInfo(LicenseEntity entity) throws FileNotFoundException {
+    public static String encryptWciInfo(LicenseEntity entity) throws FileNotFoundException {
         //1、先将内容变成xml类型的字符串，便于加密（既保存了bean结构的目录，有获取了字符串）
         String xmlStr = XMLConvertUtils.objectConvertXMl(entity);
         if (StringUtils.isEmpty(xmlStr)) {
@@ -86,5 +87,30 @@ public class LicenseManager {
         //3 使用base64进行编码
         return Base64Utils.encode(encryptData);
     }
-    
+    /**
+     * @Description: 解密wlic文件信息并获取blogLicense对象
+     * @author yuanfy
+     * @date 2018年1月4日 下午4:40:46 
+     * @version 6.5
+     */
+    public static BlogLicense getBlogLicense(){
+        try {
+            //1、获取wlic文件内容后解码
+            String content = FileUtils.getFileContentByte(ResPathUtils.getWlicPath());
+            byte[] decode = Base64Utils.decode(content);
+            //2 解密
+            PublicKey publicKey = getPublicKey(ResPathUtils.getPublicKeyPath());
+            String xmlStr = RSAUtils.decrypt(publicKey, decode);
+            //3 转换bean对象
+            BlogLicense bl = (BlogLicense)XMLConvertUtils.xmlConvertObject(xmlStr, BlogLicense.class.getCanonicalName());
+            //4 验证签名
+            if (SignatureUtils.verfiy(publicKey, bl.getWci().toString(), bl.getSignature())) {
+                return bl;
+            }
+        }
+        catch (IOException e) {
+            log.error("获取wlic文件内容失败：", e);
+        }
+        return null;
+    }
 }
