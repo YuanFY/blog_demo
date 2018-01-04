@@ -1,5 +1,7 @@
 package com.yuanfy.monitorsite.common.util.file;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -62,5 +64,25 @@ public class FileUtils {
         }
         StreamUtils.close(in);
         return fileContent.toString();
+    }
+    /**
+     * @Description: 获取文件内容
+     * @param filePath
+     * @return
+     * @throws IOException
+     * @author yuanfy
+     * @date 2018年1月4日 下午4:35:56 
+     * @version 6.5
+     */
+    public static String getFileContentByte(String filePath) throws IOException {
+        ByteArrayOutputStream  baos = new ByteArrayOutputStream();
+        @SuppressWarnings("resource")
+        DataInputStream input = new DataInputStream(new FileInputStream(filePath));
+        byte[] b = new byte[1024];
+        int len = -1;
+        while((len = input.read(b)) != -1){
+            baos.write(b,0,len);
+        }
+        return new String(baos.toByteArray());
     }
 }

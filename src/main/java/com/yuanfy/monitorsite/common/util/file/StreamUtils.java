@@ -1,13 +1,14 @@
 package com.yuanfy.monitorsite.common.util.file;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.Socket;
 
+import org.apache.commons.betwixt.io.BeanWriter;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,12 +30,6 @@ public class StreamUtils {
             catch (IOException e) {
                 log.error("关闭socket失败：" + e);
             }
-        }
-    }
-    
-    public static void close(PrintWriter printWriter) {
-        if (printWriter != null) {
-            printWriter.close();
         }
     }
     
@@ -60,13 +55,35 @@ public class StreamUtils {
         }
     }
     
-    public static void close(BufferedReader bufferedReader) {
-        if (bufferedReader != null) {
+    public static void close(Reader reader) {
+        if (reader != null) {
             try {
-                bufferedReader.close();
+                reader.close();
             }
             catch (IOException e) {
-                log.error("关闭bufferedReader失败：" + e);
+                log.error("关闭reader失败：" + e);
+            }
+        }
+    }
+    
+    public static void close(Writer writer) {
+        if (writer != null) {
+            try {
+                writer.close();
+            }
+            catch (IOException e) {
+                log.error("关闭writer失败：" + e);
+            }
+        }
+    }
+    
+    public static void close(BeanWriter beanWriter) {
+        if (beanWriter != null) {
+            try {
+                beanWriter.close();
+            }
+            catch (IOException e) {
+                log.error("关闭beanWriter失败：" + e);
             }
         }
     }
