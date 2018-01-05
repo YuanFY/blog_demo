@@ -1,5 +1,7 @@
 package com.yuanfy.monitorsite.common.util;
 
+import com.yuanfy.monitorsite.rest.conn.ConnectionInfo;
+
 /**
  * @description 字符串处理工具类
  * @author YuanFY 
@@ -27,7 +29,7 @@ public class StringUtils extends org.springframework.util.StringUtils{
 	 * @return
 	 * @author yuanfy
 	 * @date 2017年8月11日 下午2:30:04 
-	 * @version 6.2
+	 * @version 1.0
 	 */
 	public static String toJavaName(String sqlName) {
 	    if (isEmpty(sqlName)) {
@@ -46,5 +48,16 @@ public class StringUtils extends org.springframework.util.StringUtils{
 	        }
 	    }
 	    return javaName.toString();
+	}
+	/**
+	 * @Description: 根据连接信息，拼接http url
+	 * @author yuanfy
+	 * @date 2018年1月5日 下午6:03:56 
+	 * @version 1.0
+	 */
+	public static String getHttpUrl(ConnectionInfo info, String urlStr){
+        StringBuffer sb = new StringBuffer("");
+        sb.append("http://").append(info.getHost()).append(":").append(info.getPort()).append("/").append(urlStr);
+        return sb.toString();
 	}
 }
