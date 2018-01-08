@@ -86,6 +86,7 @@ public class DefaultRestClient implements RestClient {
             EntityUtils.consume(entity);
             log.info("REST返回状态码: " + responseEntity.getStatusCode());
             log.info("REST返回Body: " + responseEntity.getEntity());
+            return responseEntity;
         }
         catch (ClientProtocolException e) {
             log.error("HttpClient执行请求时，客户端协议报错：", e);
@@ -94,7 +95,6 @@ public class DefaultRestClient implements RestClient {
         catch (Exception e) {
             throw new AppException("HttpClient执行请求报错", e);
         }
-        return null;
     }
 
     public ConnectionInfo getConnectionInfo() {
