@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 
 import org.junit.Test;
 
+import com.yuanfy.test.enums.Week1;
+
 /**
  * @Description: 序列化测试类
  * @author yuanfy
@@ -93,6 +95,18 @@ public class SerializableTest {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("E:\\Student.txt")));
         Student2 s2 = (Student2)ois.readObject();
         System.out.println(s2);
+        ois.close();
+    }
+    
+    @Test
+    public void test5() throws FileNotFoundException, IOException, ClassNotFoundException{
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("E:\\Student.txt")));
+        oos.writeObject(Week1.Firday);
+        oos.close();
+        
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("E:\\Student.txt")));
+        Week1 w = (Week1)ois.readObject();
+        System.out.println(w);
         ois.close();
     }
 }
