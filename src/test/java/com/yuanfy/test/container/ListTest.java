@@ -3,6 +3,7 @@ package com.yuanfy.test.container;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import org.junit.Test;
 
@@ -73,5 +74,27 @@ public class ListTest {
         String[] str = new String[list.size()];
         str = list.toArray(str);
         System.out.println(str.length);
+    }
+    
+    @Test
+    public void testEquals(){
+        List<String> arryList = new ArrayList<String>();  
+        arryList.add("1");  
+        arryList.add("2");  
+        arryList.add("3"); 
+        
+        List<String> linkedList = new ArrayList<String>();  
+        linkedList.add("1");  
+        linkedList.add("2");  
+        linkedList.add("3");
+        
+        List<String> vector = new Vector<String>();  
+        vector.add("1");  
+        vector.add("2");  
+        vector.add("3"); 
+        
+        System.out.println(linkedList.equals(arryList));
+        System.out.println(linkedList.equals(vector));
+        System.out.println(arryList.equals(vector));
     }
 }
