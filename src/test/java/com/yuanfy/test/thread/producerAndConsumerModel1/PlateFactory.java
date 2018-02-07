@@ -1,4 +1,4 @@
-package com.yuanfy.test.thread.basic1;
+package com.yuanfy.test.thread.producerAndConsumerModel1;
 
 public class PlateFactory {
 	private boolean isEmpty = true;
