@@ -98,6 +98,6 @@ function replaceQQContent_common(str){
  * @returns
  */
 function replaceHref_common(str){
-	str = str.replace(/(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g,"<a href='$1$2' target='_blank'>$1$2</a>");
+	str = str.replace(/(http:\/\/|https:\/\/)((\w|=|:?|#?|\?|\.|\/|&|-)+)/g,"<a href='$1$2' target='_blank'>$1$2</a>");
 	return str;
 }
